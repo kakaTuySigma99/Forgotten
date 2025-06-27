@@ -1,0 +1,106 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TeleportFireUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+local textLabel = Instance.new("TextLabel", screenGui)
+textLabel.Size = UDim2.new(0, 240, 0, 30)
+textLabel.Position = UDim2.new(0, 10, 0, 10)
+textLabel.BackgroundTransparency = 0.3
+textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.Font = Enum.Font.Legacy
+textLabel.TextSize = 20
+textLabel.TextXAlignment = Enum.TextXAlignment.Left
+textLabel.Text = "Ready"
+
+local startButton = Instance.new("TextButton", screenGui)
+startButton.Size = UDim2.new(0, 80, 0, 30)
+startButton.Position = UDim2.new(0, 260, 0, 10)
+startButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+startButton.Font = Enum.Font.Legacy
+startButton.TextSize = 18
+startButton.Text = "Start"
+
+local function getAllGenerators()
+	local generators = {}
+	pcall(function()
+		local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+		for _, descendant in ipairs(fullMap:GetDescendants()) do
+			if descendant:IsA("Model") and descendant.Name == "Generator" then
+				local remotes = descendant:FindFirstChild("Remotes")
+				local re = remotes and remotes:FindFirstChild("RE")
+				local part = descendant.PrimaryPart or descendant:FindFirstChildWhichIsA("BasePart")
+				if re and part then
+					table.insert(generators, {RE = re, Pos = part.Position})
+				end
+			end
+		end
+	end)
+	return generators
+end
+
+local function waitForCharacter()
+	local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+	local hrp = char:WaitForChild("HumanoidRootPart")
+	return char, hrp
+end
+
+local function safeTeleport(pos)
+	local _, hrp = waitForCharacter()
+	hrp.CFrame = CFrame.new(pos + Vector3.new(0, 5, 0))
+end
+
+local running = false
+
+startButton.MouseButton1Click:Connect(function()
+	if running then return end
+	running = true
+	textLabel.Text = "Working..."
+
+	local generators = getAllGenerators()
+	local used = {}
+
+	local i = 1
+	while i <= #generators do
+		local gen = generators[i]
+		if used[gen.RE] then
+			i += 1
+			continue
+		end
+
+		local char, hrp = waitForCharacter()
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		if not char or not hum or hum.Health <= 0 then
+			textLabel.Text = "Waiting to respawn..."
+			char = LocalPlayer.CharacterAdded:Wait()
+			wait(1.5)
+			continue
+		end
+
+		safeTeleport(gen.Pos)
+		task.wait(1.5) -- allow loading / physics
+
+		local fired = false
+		for f = 1, 4 do
+			local success, err = pcall(function()
+				gen.RE:FireServer()
+			end)
+			if success then fired = true end
+			task.wait(0.2)
+		end
+
+		if fired then
+			used[gen.RE] = true
+		end
+
+		i += 1
+	end
+
+	textLabel.Text = "Done!"
+	running = false
+end)

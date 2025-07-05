@@ -1,1 +1,669 @@
---[[ v1.0.0 https://wearedevs.net/obfuscator ]] return(function(...)local c={"\116\117\048\054\080\100\113\086\082\076\087\114\086\100\069\118\100\100\088\048\076\073\061\061","\110\067\073\090\084\079\080\071\071\069\109\066\109\069\103\068\055\109\116\111\087\110\114\073\077\054\099\084","\075\099\111\114\083\099\078\051\075\113\066\050\083\108\066\065";"\081\056\054\103\090\067\082\087\078\120\119\119","\111\090\052\097\108\079\049\057\121\109\101\053\088\053\048\083\068\114\120\108\108\103\061\061","\110\075\120\119\113\112\101\081\085\088\097\107","\051\072\069\114\071\104\050\098","\098\050\070\089\108\098\061\061","\053\099\111\114\111\113\121\069\122\099\078\101","\103\051\080\084\114\047\112\104","\106\053\083\101\103\077\054\057";"\075\065\076\089\052\086\088\114\080\077\066\074\053\077\112\097\107\116\110\061","\104\086\099\107\069\097\065\049\070\074\102\105\080\057\120\072\106\120\073\061","\110\088\105\114\120\073\061\061","\080\108\087\116\122\108\087\077\122\071\120\065\083\071\120\114\056\099\083\061";"\111\085\120\111\053\056\079\065\100\114\109\061";"\088\065\052\083\112\111\104\086\071\113\120\086\088\071\120\114\052\098\061\061";"\115\054\068\121\049\083\112\056\051\065\088\071\105\111\110\120\085\104\074\107\054\065\053\085\110\088\117\057";"\104\082\050\117\116\051\117\084\050\101\119\070\111\108\105\053\098\122\055\106\071\114\097\061";"\111\067\111\077\052\113\121\115\110\103\061\061";"\108\089\121\051\072\067\088\101\054\098\061\061","\106\081\105\053\057\109\074\119\118\108\082\107\073\056\097\073\053\122\119\074","\066\070\115\082\119\116\043\075\103\049\047\051\076\100\070\074";"\115\101\056\098\069\053\077\080\100\069\116\089","\100\073\103\075\098\051\050\054","\055\088\067\071\057\047\109\061";"\080\108\087\049";"\080\118\088\114\075\116\052\101\052\098\061\061";"\100\047\104\081\102\097\087\071";"\057\117\081\112\082\105\109\061";"\055\076\072\111\122\083\043\083\072\112\061\061","\121\068\070\098","\084\053\111\110\056\047\122\077\056\089\112\047\122\116\121\048\084\098\061\061","\114\081\072\118\084\090\079\106\118\076\076\061";"\067\053\112\061","\082\100\103\116\072\112\061\061","\075\067\068\105\122\113\121\043","\121\079\087\065\115\098\061\061";"\072\081\117\055\054\112\061\061";"\074\069\111\072\107\081\069\043\057\116\090\088";"\088\067\101\105\122\116\122\051\075\069\087\114\112\099\048\051\072\113\088\108\084\113\101\077\084\116\101\086\112\112\061\061";"\086\114\043\114\075\069\104\061";"\115\106\089\082","\102\057\053\110\121\102\071\081\047\082\066\073\108\099\075\081\085\068\114\061";"\080\116\052\120\107\113\078\081\071\077\116\089\080\068\101\070\110\112\061\061";"\115\047\083\090\054\121\067\101\116\108\116\061","\097\074\122\101\110\072\116\112\069\099\074\055";"\107\108\048\076\056\101\111\071\107\116\043\120\071\113\088\070","\085\109\090\098\099\073\061\061","\120\086\070\081\102\072\078\087\047\073\061\061","\121\119\121\048\055\098\077\080\107\057\104\061","\084\114\120\108\053\047\049\068\056\068\052\086\087\111\101\051\053\111\112\061","\071\053\078\101\084\114\120\076\088\069\051\079\071\071\083\114\112\089\110\061","\122\099\089\048\052\113\087\104","\075\104\075\075\048\109\051\055\047\120\051\072\114\098\061\061";"\081\105\080\104\103\077\087\112\110\100\082\108";"\080\079\087\112","\080\100\070\052\055\066\073\047\108\112\061\061";"\075\067\111\043\072\047\122\101";"\055\085\107\068\052\073\061\061","\073\080\101\110\113\073\114\050\121\048\111\116\110\112\108\119\055\084\104\099\053\089\065\049\122\103\061\061","\089\088\117\086\057\082\111\077\102\078\116\106\101\121\104\061";"\053\113\118\052\115\103\061\061","\043\073\104\088\066\088\109\078\050\073\061\061","\075\074\087\105\110\114\066\111\110\071\068\111\052\067\120\057\084\053\112\061";"\109\067\089\077\052\104\118\048\121\099\051\050\109\055\049\103\077\110\118\114\090\099\070\097","\112\099\121\119\072\047\076\086";"\102\120\057\111\115\075\057\053\070\112\061\061","\054\111\087\047\072\065\087\049\110\099\066\066\111\047\112\078\052\099\112\061";"\122\120\082\049\118\072\074\105\111\085\112\122","\075\116\047\050\047\113\073\061";"\070\049\069\084\105\073\061\061","\118\078\122\085\109\109\071\080\100\112\112\061";"\112\099\121\105\072\067\111\077\052\098\061\061";"\070\053\110\107\108\112\061\061","\087\116\078\111\053\099\089\114\071\071\068\086\053\114\048\112";"\049\071\052\089\103\100\056\074\071\048\056\099\050\056\088\100\105\087\056\106\073\076\112\114";"\109\097\114\116\102\113\110\101\083\102\054\050\100\067\090\076\071\122\086\104\112\068\112\085\121\076\056\081\119\066\116\061","\090\089\119\061","\114\043\104\070","\085\081\052\111\082\107\113\084\098\104\089\080\090\118\071\052","\053\099\111\114\088\118\066\050\075\113\088\050\052\099\097\061";"\082\065\107\118\089\080\089\052\050\080\121\099\103\072\066\079\119\055\108\112\074\084\103\089\076\100\085\079\118\074\103\061","\100\118\119\070\122\097\066\089\121\074\076\061";"\102\047\055\105\116\049\081\054\078\089\107\078";"\111\113\098\113\100\118\088\087\100\107\043\081\108\066\079\066\121\121\077\119\089\103\061\061","\105\119\051\077\081\108\067\118","\065\084\122\082\066\078\099\121\098\111\049\119";"\077\104\097\061";"\100\078\115\073\078\051\077\111","\074\110\068\098\069\098\061\061";"\075\104\072\089\122\088\069\109\089\077\103\061";"\111\088\114\115\100\109\112\061";"\065\047\085\077\048\078\121\102\100\119\116\078";"\089\078\083\106\113\102\050\055\101\087\070\074";"\047\114\057\104\106\106\105\081\070\112\061\061","\055\069\099\118","\076\069\050\098\051\089\082\082\074\121\051\072\118\113\085\066\043\089\116\043\085\097\100\102\082\074\112\075";"\089\109\100\075\100\098\061\061","\099\052\076\061";"\071\066\051\117\120\087\077\113\112\108\066\076";"\056\071\068\106\122\053\120\050\052\113\101\067\084\071\087\048\052\113\101\050\072\073\061\061","\108\089\121\043\122\108\088\048\052\113\068\079\072\113\053\061","\090\075\107\054\087\068\078\052\089\103\061\061";"\065\081\065\082","\109\054\100\097\089\109\109\115\080\121\055\048\086\065\078\101\052\104\084\076\073\103\061\061";"\088\113\111\086\052\118\066\050\054\112\061\061";"\086\071\082\075\101\086\043\074\055\066\098\061";"\121\121\052\079";"\099\073\114\109\114\080\053\120\113\088\052\075\054\099\073\061","\103\082\050\077\106\120\056\101\083\112\061\061";"\084\070\087\055\077\090\083\086";"\088\111\049\069\107\116\075\099\088\113\120\083\053\067\088\066\111\068\053\061";"\112\071\088\065\088\118\066\050\075\113\088\050\052\099\097\061","\119\100\108\056\114\100\089\104\055\114\080\049";"\080\114\050\079\074\112\061\061","\121\054\071\080\050\051\070\117\082\098\104\083\075\070\083\061","\056\071\068\106\122\111\052\051\072\067\088\050\052\103\061\061";"\112\075\097\121\097\080\120\121\090\104\076\080\056\049\056\087\051\111\073\061","\079\050\081\066\066\121\071\121\103\065\052\053","\048\120\052\107\055\051\122\098\056\099\113\079\121\115\100\100\074\120\110\115\066\049\122\116\111\087\057\112\069\049\111\089\102\108\079\073\088\100\081\098\067\107\101\082";"\119\084\109\075";"\043\121\086\047\100\119\103\089\084\086\121\116";"\075\056\049\078\107\098\061\061";"\067\056\066\099";"\066\056\083\066\073\103\061\061";"\119\065\054\113\117\073\061\061","\112\099\083\047\052\071\088\086\080\065\048\080\080\071\087\099";"\116\071\054\043\109\113\102\053\079\077\116\087","\083\099\084\074\073\073\061\061","\122\084\057\085\054\047\075\081\084\068\082\110";"\087\050\069\072","\051\079\122\100\116\049\054\075\078\084\053\100";"\089\088\102\112\100\112\061\061";"\104\117\080\112\112\098\061\061","\072\113\121\048\122\118\087\114\075\067\101\105\122\103\061\061";"\065\103\097\115\054\078\089\119\102\049\070\081\107\120\097\061","\088\099\111\114\088\113\111\086\083\099\111\105\122\113\068\105\052\118\110\061","\120\111\076\080\111\103\061\061";"\103\071\088\066\084\047\069\099\079\104\080\121";"\080\071\120\086\052\113\068\105\083\099\053\061","\056\056\068\112\083\114\078\078\054\116\122\106\054\068\122\074\110\077\116\061";"\118\057\079\099\088\106\066\078\107\054\065\072";"\072\082\109\120";"\070\054\098\079\083\100\099\117\121\080\102\072\114\118\116\066\081\055\050\112\070\112\061\061","\053\099\111\114","\111\085\113\086\106\073\061\061","\111\099\068\051\052\116\122\050\075\065\087\104\084\071\078\065","\122\056\077\118\080\102\104\061","\105\089\110\109","\048\043\111\077\053\068\065\061";"\110\065\065\078\122\071\073\103\087\071\110\103\122\089\049\068\072\098\061\061","\074\118\075\103\078\073\061\061","\076\043\072\082\120\087\106\120\079\102\053\122\106\050\070\088","\050\121\119\110\050\105\108\097\074\048\054\100\110\068\088\055\043\078\054\098\117\090\070\052\053\099\080\055\082\049\107\047\082\085\066\076\115\087\114\080\116\098\061\061";"\107\086\085\057\081\114\043\106\112\098\061\061";"\074\088\112\120\055\103\061\061","\121\078\078\050\100\112\061\061";"\113\113\103\087\114\070\082\119\113\109\049\109\112\066\067\047\069\054\080\104\057\120\083\061";"\050\114\117\084\119\090\088\054\074\111\114\061","\079\110\055\115\079\079\117\113","\047\053\082\056\085\120\057\099\075\089\119\099\113\085\109\061","\071\069\104\102\114\088\070\105\116\103\081\056\085\106\100\075";"\085\119\083\106\075\104\104\070\105\106\056\065\087\067\056\110\109\047\109\116\097\083\070\106\048\081\107\112\086\078\114\061","\104\120\113\076\113\075\077\051\054\090\075\061";"\083\080\053\048\118\100\104\087\103\053\106\080\106\086\051\103\057\118\056\073\089\098\085\081\099\115\080\073\043\110\081\056\079\050\082\050\074\090\099\048\072\105\097\107\076\089\080\076\068\108\120\116\106\067\089\078\070\087\107\047\113\080\067\104\116\105\106\097\115\090\069\084\104\069\085\079\108\082\097\050\116\088\069\075\111\072\075\118\047\054\112\103\087\115\082\117\074\101\119\061","\084\065\078\117\056\086\111\083\052\108\101\122\072\073\061\061";"\080\053\118\051\119\054\119\061","\086\118\077\083\090\106\086\097\090\090\086\056\110\077\053\048\120\098\115\089\116\099\066\103","\049\108\107\050\113\113\099\112","\122\110\090\086\104\110\105\107\074\098\061\061","\082\071\114\111\109\089\079\049\086\098\109\061","\105\049\098\057\052\056\118\054\070\079\098\061";"\074\043\110\120\103\112\061\061";"\117\071\075\120\117\065\107\121\077\109\114\061","\107\122\104\078\104\098\061\061";"\056\118\088\043\056\108\066\097\056\118\087\117\075\071\066\108\080\098\061\061","\107\120\053\066","\090\047\047\117\056\085\073\108\097\072\121\068\110\121\097\085\076\114\057\088\086\050\101\106\119\073\061\061","\087\052\056\080\071\112\061\061";"\100\090\097\114\118\100\074\103\083\090\050\098\082\077\066\107\080\065\066\090\067\112\061\061";"\099\079\077\070\085\084\067\108\085\122\101\078\073\086\070\087\100\075\097\112\114\048\057\083\052\101\076\049\101\052\056\043\075\082\100\053\106\053\043\053\080\074\067\052\112\110\103\117\080\048\117\121\087\090\099\052\072\122\048\118\086\048\078\088";"\117\079\054\122\118\073\054\090\056\107\076\061";"\052\113\121\086\052\118\066\051\072\067\075\061";"\122\084\066\051\051\081\109\107\076\098\048\054\088\113\109\074\112\053\074\072\079\103\061\061","\119\052\070\086\053\085\106\088\056\110\088\051\111\072\077\088\111\084\098\080\121\073\061\061";"\122\067\078\050\072\047\076\061";"\083\086\083\061","\112\108\122\120\110\114\104\086\088\065\121\110\075\086\088\105\056\112\061\061";"\074\052\097\117\109\104\100\047\099\083\047\119","\055\099\120\056\074\076\110\061";"\117\088\116\071\048\098\113\086\071\113\088\048","\120\084\097\061","\083\099\121\105\083\099\068\114";"\104\108\107\084\122\087\088\073\057\103\069\055\090\104\075\061","\115\106\112\110\071\073\061\061","\069\089\109\108\090\098\119\086\081\047\081\072";"\054\065\121\065\080\116\052\120\052\101\111\110\087\067\073\089\056\073\061\061";"\057\097\103\108\117\052\066\104\067\089\076\082\113\076\104\056\113\103\065\061","\047\066\106\057\056\054\116\061";"\114\066\115\082\105\114\086\118","\113\085\122\068\099\111\047\115\120\100\052\056","\071\053\048\107\088\099\066\048\088\053\052\057\054\068\068\051","\105\056\050\088\077\103\061\061";"\119\105\051\073","\056\056\052\048\052\118\048\104\072\099\097\120\071\053\089\086\052\112\061\061","\080\103\116\083\065\048\121\070\112\056\065\048\085\073\068\113\055\081\050\050\079\067\107\043";"\100\098\061\061";"\056\105\078\081\080\089\043\085\106\088\083\061";"\098\087\081\049\112\054\072\067\104\098\061\061","\052\113\121\105\052\071\089\079\122\108\076\061","\099\048\083\114","\052\113\068\079\072\113\053\061";"\088\116\051\067\111\099\120\074\056\114\043\082\111\074\048\107\071\053\065\061","\122\108\066\115\072\047\076\061","\088\099\072\053\104\112\061\061","\084\119\103\053","\110\043\066\086";"\088\111\082\087\116\122\078\066\086\105\068\078\082\075\114\061";"\112\079\103\116\073\076\043\103","\052\099\068\115\072\073\061\061";"\052\047\088\099\069\070\108\051\047\074\075\117\097\122\119\061","\073\074\111\066\074\112\061\061","\112\072\107\113","\122\053\079\101\047\107\077\099\109\084\056\073";"\083\065\103\099\075\116\083\120\071\071\078\078\111\067\101\088\072\108\076\061";"\050\073\061\061","\049\089\065\086\076\088\122\103\082\113\076\051";"\055\104\089\102\085\073\061\061";"\089\111\102\068\084\090\102\111\051\049\122\057";"\122\117\065\061","\111\066\054\072\065\098\061\061";"\057\079\089\065\114\098\118\102\078\072\116\061","\118\085\098\072\110\110\078\050","\104\113\111\116";"\088\065\112\097\110\068\104\115\054\108\053\114\084\113\065\086";"\084\089\098\080\047\112\049\111\056\104\080\043\105\115\057\113\108\056\107\090\122\101\087\083\112\078\099\080\104\078\090\049\056\069\087\084\079\105\106\122\050\101\079\086\070\073\061\061";"\066\105\052\116\108\120\089\085\114\043\089\114\082\098\112\080\047\103\061\061","\074\101\106\098\066\081\110\083\090\121\065\119\100\054\104\061","\043\088\110\080\047\112\061\061";"\121\077\122\117\052\072\069\110\079\048\098\061","\065\115\103\082";"\043\082\110\104\072\071\085\100\051\056\054\109\077\112\061\061";"\122\054\088\085\112\073\061\061","\050\051\098\121\097\112\061\061","\088\067\101\105\122\116\122\051\075\069\087\114\112\099\048\051\072\113\088\057\122\065\087\119\083\108\087\086";"\114\065\088\086\090\052\111\065\104\109\116\097\115\089\075\118\052\120\073\103\055\052\067\110\118\079\104\087\083\116\114\061";"\053\053\051\116\053\065\120\110\056\099\101\119\087\077\052\104\052\108\116\061","\072\074\116\061";"\111\071\120\081\083\101\112\089\084\089\051\047\083\111\116\089","\054\083\119\114\106\099\072\070\122\073\061\061","\053\111\088\079\075\077\122\081\084\068\066\115\080\086\066\076\072\101\104\061","\072\113\111\105","\116\081\074\099\043\108\075\098\106\079\083\061";"\089\117\109\101\084\098\061\061","\071\090\079\075\116\098\061\061","\110\089\122\057\087\116\109\047\071\111\051\047\053\047\122\089\071\112\061\061","\072\077\102\050\075\121\054\057\078\052\072\099\079\084\118\082\089\072\119\109\043\112\061\061";"\065\047\088\099\115\080\115\050\117\090\097\061";"\065\087\065\118\106\054\109\103\102\097\112\048\085\057\078\074\097\079\083\061","\105\071\079\085\121\072\107\088\117\069\065\061","\071\113\078\077\110\103\061\061","\071\074\110\080\050\069\067\088\116\100\088\047\090\099\110\068\083\066\067\079\073\112\061\061";"\107\113\043\069\053\099\120\117\053\101\075\103\056\067\101\056","\074\067\069\088","\080\077\111\080\075\068\052\107\111\053\088\088\054\071\112\120\084\118\065\061","\089\113\121\081";"\115\118\070\115\106\083\098\083\071\084\075\061","\105\110\113\067\075\103\061\061";"\107\068\051\043\088\086\111\077\084\056\111\089\083\067\111\103\075\112\061\061","\071\108\048\097\052\047\111\119\071\067\088\115\087\089\065\103\075\112\061\061";"\056\109\099\082\048\108\080\053\112\072\088\073\113\052\098\061","\112\071\088\065\111\113\121\069\122\099\078\101","\069\121\089\083\084\101\089\067\065\122\076\061";"\068\110\082\106\111\079\065\120\066\121\082\047\090\073\118\097\082\085\084\103\047\056\076\110\075\085\048\102\085\071\109\061";"\052\099\121\115\084\047\087\103\083\071\087\101","\071\073\061\061";"\106\083\101\073\081\085\079\055\056\052\109\071\067\082\114\061","\075\099\111\114\072\071\111\114\083\108\088\048\083\067\078\101";"\107\074\049\103\075\101\087\110\107\056\088\086\083\069\122\089\112\071\110\061","\073\073\070\054\110\108\118\079\049\065\065\061","\047\115\077\066\043\098\061\061","\043\088\084\056\083\112\078\080\113\113\116\061";"\111\113\068\043\075\113\111\115\076\116\088\101\052\113\111\077\052\113\111\065\076\112\061\061","\099\079\047\122\114\105\053\061";"\101\082\076\104\117\117\086\110";"\103\079\089\043\109\109\071\051\067\098\113\057\070\055\118\077\099\076\121\103\102\067\121\054\070\113\052\051\083\108\120\090\065\057\083\087\070\054\113\086\072\106\054\090\110\112\102\088\056\085\107\052\113\100\110\082\067\102\104\080\084\084\054\115\069\076\050\115\103\117\077\122\112\086\106\047\113\107\118\074\112\110\107\073";"\122\113\048\101\111\067\088\068\053\108\048\078\088\069\122\049\080\073\061\061","\088\067\051\086\072\077\052\116\054\065\088\082\071\111\104\089\072\086\073\061";"\112\071\088\065\056\113\068\079\122\071\103\061","\116\107\069\043\112\117\109\077\113\073\061\061","\090\075\122\115\083\121\076\074";"\056\050\066\053\090\106\113\071\100\098\061\061","\072\113\080\066\115\057\104\061","\110\071\101\104\072\067\048\080\072\101\122\101\053\056\065\120","\111\056\048\080\087\071\089\103\052\071\043\104\056\113\078\118\053\073\061\061";"\057\103\099\119\047\098\061\061";"\080\049\067\100\114\083\050\053\101\112\088\090","\078\104\105\114\067\074\113\107\080\083\112\061","\072\102\075\070\076\113\053\071\100\111\118\110\099\119\087\089\088\120\083\061","\057\115\086\077\099\087\111\115","\121\072\097\085\116\065\089\051\088\120\072\122","\107\073\061\061";"\112\071\088\065\112\069\111\114\052\113\121\105";"\108\089\121\069\083\103\061\061","\122\047\101\117\072\086\066\119\112\089\051\104\053\065\066\115\083\065\097\061","\055\048\120\120\048\098\061\061";"\112\071\088\065\053\113\068\115\083\071\052\115\083\108\049\104";"\080\111\101\099\080\077\048\120\072\047\049\078\088\099\043\108\072\089\116\061","\076\048\103\109\075\043\114\105\118\073\061\061";"\113\089\109\119\090\119\112\084\080\098\061\061","\053\114\052\115\122\067\111\107\080\067\048\077\075\089\122\089";"\111\122\089\065\090\112\061\061";"\072\071\068\114\084\098\061\061";"\089\119\083\100\116\110\097\061","\117\065\081\049";"\116\099\088\114\108\112\053\121\054\047\108\100\106\118\055\083\084\050\106\068\081\083\067\078\078\051\122\051\112\121\070\109\079\098\061\061";"\104\054\075\119\083\103\061\061";"\049\068\120\072\119\075\057\090\056\115\116\061","\098\043\068\066\055\098\061\061","\120\109\104\112","\110\073\076\108\108\051\118\073\100\056\103\061";"\121\083\120\117","\080\108\082\065\043\074\117\087\066\112\061\061";"\107\097\108\100";"\112\071\088\065\053\099\078\051\122\113\111\115";"\078\051\053\109\097\114\107\077\086\066\114\075\086\118\049\111\106\117\075\081\115\112\061\061","\078\077\118\079\075\121\110\061";"\107\053\088\086\110\065\051\049\107\068\068\113\072\114\101\067\052\103\061\061";"\082\047\052\048\065\067\074\106\066\090\114\061";"\109\080\116\075";"\080\071\120\051\052\098\061\061","\111\099\068\051\052\098\061\061";"\056\099\087\051\088\099\101\068\110\099\111\119\054\116\104\061";"\117\065\098\117\075\085\103\061";"\054\108\111\116\052\074\111\083\080\068\104\078\087\065\088\112";"\057\068\069\099\099\115\109\079","\105\115\112\065\073\079\053\066\069\098\061\061";"\072\108\118\098\052\088\053\066";"\105\097\053\119\077\086\098\120\088\106\066\083\043\056\105\103\068\057\084\070\121\111\088\110\117\111\097\055\049\056\065\061","\111\118\116\099\052\086\066\120\080\071\122\053\052\108\048\089","\108\089\121\119\122\071\097\061";"\103\122\114\054\088\121\115\053\068\122\079\090\077\087\109\085\078\048\102\113\083\072\070\054\079\112\057\122\050\053\117\070\057\113\115\047\087\054\054\084\053\106\076\107\075\057\051\099\111\066\110\086
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/jensonhirst/Orion/main/source"))()
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Window = OrionLib:MakeWindow({
+    Name = "Kaka Hub | Forgotten beta test 1.1",
+    HidePremium = false,
+    SaveConfig = true,
+    ConfigFolder = "KakaHub"
+})
+
+-- Update Logs Tab
+local LogsTab = Window:MakeTab({
+    Name = "Update Logs",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+LogsTab:AddParagraph("Recent Updates", [[
+- add Players tab
+- add Credit tab
+- add slide button (misc)
+]])
+
+-- Main Tab
+local MainTab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+MainTab:AddButton({
+    Name = "Do All Generators",
+    Callback = function()
+        local function getAllGenerators()
+            local generators = {}
+            pcall(function()
+                local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+                for _, descendant in ipairs(fullMap:GetDescendants()) do
+                    if descendant:IsA("Model") and descendant.Name == "Generator" then
+                        local remotes = descendant:FindFirstChild("Remotes")
+                        local re = remotes and remotes:FindFirstChild("RE")
+                        local part = descendant.PrimaryPart or descendant:FindFirstChildWhichIsA("BasePart")
+                        if re and part then
+                            table.insert(generators, {RE = re, Pos = part.Position})
+                        end
+                    end
+                end
+            end)
+            return generators
+        end
+
+        local function waitForCharacter()
+            local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+            return char, char:WaitForChild("Humanoid"), char:WaitForChild("HumanoidRootPart")
+        end
+
+        local function teleport(pos)
+            local _, _, hrp = waitForCharacter()
+            hrp.CFrame = CFrame.new(pos + Vector3.new(0, 5, 0))
+        end
+
+        local generators = getAllGenerators()
+        local used = {}
+
+        for _, gen in pairs(generators) do
+            if not used[gen.RE] then
+                teleport(gen.Pos)
+                task.wait(1.5)
+                for i = 1, 4 do
+                    pcall(function()
+                        gen.RE:FireServer()
+                    end)
+                    task.wait(0.2)
+                end
+                used[gen.RE] = true
+            end
+        end
+    end
+})
+MainTab:AddToggle({
+	Name = "Semi aimbot",
+	Default = false,
+	Callback = function(Value)
+		getgenv().FaceHighHP = Value
+
+		if Value then
+			task.spawn(function()
+				while getgenv().FaceHighHP do
+					local myChar = Players.LocalPlayer.Character
+					local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
+					if myHRP then
+						local target = nil
+						local minDist = math.huge
+						for _, plr in pairs(Players:GetPlayers()) do
+							if plr ~= Players.LocalPlayer and plr.Character then
+								local hum = plr.Character:FindFirstChildOfClass("Humanoid")
+								local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
+								if hum and hrp and hum.Health > 200 then
+									local dist = (hrp.Position - myHRP.Position).Magnitude
+									if dist < minDist then
+										minDist = dist
+										target = hrp
+									end
+								end
+							end
+						end
+						if target then
+							local lookPos = Vector3.new(target.Position.X, myHRP.Position.Y, target.Position.Z)
+							myHRP.CFrame = CFrame.new(myHRP.Position, lookPos)
+						end
+					end
+					task.wait(0.1)
+				end
+			end)
+		end
+	end
+})
+local PlayersTab = Window:MakeTab({
+	Name = "Players",
+	Icon = "rbxassetid://4483345998", -- optional icon
+	PremiumOnly = false
+})
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Get initial player names (excluding LocalPlayer)
+local function getOtherPlayers()
+	local names = {}
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= LocalPlayer then
+			table.insert(names, player.Name)
+		end
+	end
+	return names
+end
+
+-- Store selected player
+local selectedPlayer = nil
+
+-- Create dropdown
+local dropdown = PlayersTab:AddDropdown({
+	Name = "Select Player",
+	Default = "",
+	Options = getOtherPlayers(),
+	Callback = function(value)
+		selectedPlayer = value
+		print("Selected Player:", value)
+	end
+})
+
+-- Update dropdown when players join/leave
+Players.PlayerAdded:Connect(function()
+	dropdown:Refresh(getOtherPlayers(), true)
+end)
+
+Players.PlayerRemoving:Connect(function()
+	dropdown:Refresh(getOtherPlayers(), true)
+end)
+PlayersTab:AddButton({
+	Name = "Go to Target",
+	Callback = function()
+		if selectedPlayer then
+			local target = Players:FindFirstChild(selectedPlayer)
+			if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+				local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				if hrp then
+					hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+				end
+			end
+		else
+			warn("No player selected!")
+		end
+	end
+})
+local loopTP = false
+
+PlayersTab:AddToggle({
+	Name = "Loop TP to Target",
+	Default = false,
+	Callback = function(state)
+		loopTP = state
+		while loopTP do
+			task.wait(0.2)
+			if selectedPlayer then
+				local target = Players:FindFirstChild(selectedPlayer)
+				if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+					local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+					if hrp then
+						hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+					end
+				end
+			end
+		end
+	end
+})
+local targetHealthLabel = PlayersTab:AddLabel("Target Health: N/A")
+
+task.spawn(function()
+	while true do
+		task.wait(0.2)
+		if selectedPlayer then
+			local target = Players:FindFirstChild(selectedPlayer)
+			if target and target.Character and target.Character:FindFirstChild("Humanoid") then
+				local hp = math.floor(target.Character.Humanoid.Health)
+				targetHealthLabel:Set("Target Health: " .. hp)
+			else
+				targetHealthLabel:Set("Target Health: N/A")
+			end
+		else
+			targetHealthLabel:Set("Target Health: N/A")
+		end
+	end
+end)
+-- Aimbot Tab
+local AimbotTab = Window:MakeTab({
+    Name = "Aimbot",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+AimbotTab:AddLabel("Coming Soon...")
+
+-- Misc Tab
+local MiscTab = Window:MakeTab({
+    Name = "Misc",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+local slideCooldown = false
+
+MiscTab:AddButton({
+    Name = "Slide",
+    Callback = function()
+        if slideCooldown then
+            OrionLib:MakeNotification({
+                Name = "Slide",
+                Content = "Slide is on cooldown!",
+                Time = 2
+            })
+            return
+        end
+
+        local char = LocalPlayer.Character
+        if not char then return end
+
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        local hum = char:FindFirstChildOfClass("Humanoid")
+        if not hrp or not hum then return end
+
+        local moveDir = hum.MoveDirection
+        if moveDir.Magnitude == 0 then
+            -- If no input, slide forward facing camera direction
+            local cam = workspace.CurrentCamera
+            if cam then
+                moveDir = cam.CFrame.LookVector
+            else
+                moveDir = Vector3.new(0,0,1)
+            end
+        end
+
+        local bv = Instance.new("BodyVelocity")
+        bv.MaxForce = Vector3.new(1e5, 0, 1e5)
+        bv.Velocity = moveDir.Unit * 80
+        bv.Parent = hrp
+
+        slideCooldown = true
+
+        task.delay(0.3, function()
+            bv:Destroy()
+        end)
+
+        task.delay(2, function()
+            slideCooldown = false
+        end)
+    end
+})
+-- Inside your existing MiscTab section
+MiscTab:AddSlider({
+    Name = "WalkSpeed",
+    Min = 16,
+    Max = 200,
+    Default = 16,
+    Increment = 1,
+    ValueName = "Speed",
+    Callback = function(value)
+        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+        if hum then
+            hum.WalkSpeed = value
+        end
+    end
+})
+
+MiscTab:AddSlider({
+    Name = "JumpPower",
+    Min = 50,
+    Max = 300,
+    Default = 50,
+    Increment = 1,
+    ValueName = "Power",
+    Callback = function(value)
+        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+        if hum then
+            hum.JumpPower = value
+        end
+    end
+})
+
+local espEnabled = false
+local espBoxes = {}
+
+local function toggleESP(state)
+    espEnabled = state
+
+    for _, box in pairs(espBoxes) do
+        box:Destroy()
+    end
+    table.clear(espBoxes)
+
+    if not espEnabled then return end
+
+    task.spawn(function()
+        while espEnabled do
+            for _, player in pairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    if not espBoxes[player] then
+                        local box = Instance.new("BoxHandleAdornment")
+                        box.Size = Vector3.new(4, 6, 2)
+                        box.Color3 = Color3.new(1, 0, 0)
+                        box.Adornee = player.Character.HumanoidRootPart
+                        box.AlwaysOnTop = true
+                        box.ZIndex = 5
+                        box.Transparency = 0.5
+                        box.Name = "ESPBox"
+                        box.Parent = game.CoreGui
+                        espBoxes[player] = box
+                    end
+                end
+            end
+
+            for p, box in pairs(espBoxes) do
+                if not p:IsDescendantOf(Players) or not p.Character or not p.Character:FindFirstChild("HumanoidRootPart") then
+                    box:Destroy()
+                    espBoxes[p] = nil
+                end
+            end
+
+            task.wait(1)
+        end
+    end)
+end
+
+MiscTab:AddToggle({
+    Name = "Player ESP",
+    Default = false,
+    Callback = function(state)
+        toggleESP(state)
+    end
+})
+-- Milestones Tab
+local MileTab = Window:MakeTab({
+    Name = "Milestones",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+MileTab:AddButton({
+    Name = "Auto Killer Milestone",
+    Callback = function()
+        OrionLib:MakeNotification({
+            Name = "Auto Killer Milestone",
+            Content = "Started auto milestone farming!",
+            Time = 5
+        })
+
+        local function getAllGenerators()
+            local generators = {}
+            pcall(function()
+                local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+                for _, descendant in ipairs(fullMap:GetDescendants()) do
+                    if descendant:IsA("Model") and descendant.Name == "Generator" then
+                        local remotes = descendant:FindFirstChild("Remotes")
+                        local re = remotes and remotes:FindFirstChild("RE")
+                        local part = descendant.PrimaryPart or descendant:FindFirstChildWhichIsA("BasePart")
+                        if re and part then
+                            table.insert(generators, {RE = re, Pos = part.Position})
+                        end
+                    end
+                end
+            end)
+            return generators
+        end
+
+        local function waitForCharacter()
+            if not LocalPlayer.Character or not LocalPlayer.Character:FindFirstChild("Humanoid") then
+                LocalPlayer.CharacterAdded:Wait()
+            end
+            local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+            local hum = char:WaitForChild("Humanoid")
+            local hrp = char:WaitForChild("HumanoidRootPart")
+            return char, hum, hrp
+        end
+
+        local function teleport(pos)
+            local _, _, hrp = waitForCharacter()
+            hrp.CFrame = CFrame.new(pos + Vector3.new(0, 5, 0))
+        end
+
+        local function fireAllGenerators()
+            local generators = getAllGenerators()
+            local used = {}
+
+            for _, gen in pairs(generators) do
+                if not used[gen.RE] then
+                    teleport(gen.Pos)
+                    task.wait(1.5)
+                    for i = 1, 4 do
+                        pcall(function()
+                            gen.RE:FireServer()
+                        end)
+                        task.wait(0.2)
+                    end
+                    used[gen.RE] = true
+                end
+            end
+        end
+
+        local function resetCharacter()
+            local char = LocalPlayer.Character
+            if char then
+                local hum = char:FindFirstChildOfClass("Humanoid")
+                if hum then
+                    hum.Health = 0
+                end
+            end
+        end
+
+        task.spawn(function()
+            while true do
+                local char, hum = waitForCharacter()
+
+                repeat
+                    task.wait(0.5)
+                    char, hum = waitForCharacter()
+                until hum.Health > 200
+
+                fireAllGenerators()
+                task.wait(1)
+                resetCharacter()
+
+                repeat
+                    task.wait(1)
+                    char, hum = waitForCharacter()
+                until hum and hum.Health > 200
+
+                task.wait(1.5)
+            end
+        end)
+    end
+})
+
+MileTab:AddParagraph("Warning", "This might not work well since I'm lazy to fix it. Also, thanks for using!")
+
+MileTab:AddToggle({
+    Name = "Safe Spot",
+    Default = false,
+    Callback = function(value)
+        getgenv().SafeSpotActive = value
+        if value then
+            local Players = game:GetService("Players")
+            local localPlayer = Players.LocalPlayer
+            local char = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+            local hrp = char:WaitForChild("HumanoidRootPart")
+
+            -- Save the position 1000 studs above current
+            local safePos = hrp.Position + Vector3.new(0, 30, 0)
+
+            task.spawn(function()
+                while getgenv().SafeSpotActive do
+                    if hrp then
+                        hrp.CFrame = CFrame.new(safePos)
+                    end
+                    task.wait(0.0001) -- Teleport every 1 second, adjust as needed
+                end
+            end)
+        end
+    end
+})
+local SettingsTab = Window:MakeTab({
+    Name = "Settings",
+    Icon = "rbxassetid://4483345998", -- you can use any icon asset ID here
+    PremiumOnly = false
+})
+local notificationsEnabled = true
+local volume = 50
+local theme = "Light"
+
+SettingsTab:AddToggle({
+    Name = "Enable Notifications",
+    Default = notificationsEnabled,
+    Callback = function(value)
+        notificationsEnabled = value
+        print("Notifications enabled:", notificationsEnabled)
+        -- You can add logic here to enable/disable notifications in your script
+    end
+})
+
+SettingsTab:AddSlider({
+    Name = "Volume",
+    Min = 0,
+    Max = 100,
+    Default = volume,
+    Increment = 5,
+    Suffix = "%",
+    Callback = function(value)
+        volume = value
+        print("Volume set to:", volume)
+        -- Use volume in your audio system, if any
+    end
+})
+
+SettingsTab:AddDropdown({
+    Name = "Theme",
+    Default = theme,
+    Options = {"Light", "Dark"},
+    Callback = function(value)
+        theme = value
+        print("Theme set to:", theme)
+        -- Add your theme switching code here
+    end
+})
+
+SettingsTab:AddButton({
+    Name = "Reset Settings",
+    Callback = function()
+        notificationsEnabled = true
+        volume = 50
+        theme = "Light"
+
+        -- Update UI controls to reflect defaults
+        -- (Note: some libs need manual update, some auto-update)
+        SettingsTab:SetToggle("Enable Notifications", notificationsEnabled)
+        SettingsTab:SetSlider("Volume", volume)
+        SettingsTab:SetDropdown("Theme", theme)
+
+        print("Settings reset to default")
+    end
+})
+local CreditTab = Window:MakeTab({
+	Name = "Credits",
+	Icon = "rbxassetid://6023426923", -- (Optional) Change icon ID
+	PremiumOnly = false
+})
+CreditTab:AddLabel("Script by: kaka tu")
+CreditTab:AddLabel("Using Orion Library")
+CreditTab:AddLabel("Uhh aimbot will definitely not come since im lazy :P")
+CreditTab:AddButton({
+	Name = "Copy YouTube Link",
+	Callback = function()
+		setclipboard("https://youtu.be/jrDIjwa8r_E?si=r-POPFwEqFt0SDnX")
+		OrionLib:MakeNotification({
+			Name = "Copied!",
+			Content = "YouTube link copied to clipboard.",
+			Time = 3
+		})
+	end
+})
+-- Finalize GUI
+OrionLib:Init()

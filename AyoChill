@@ -116,9 +116,7 @@ local LogsTab = Window:MakeTab({
     PremiumOnly = false
 })
 LogsTab:AddParagraph("Recent Updates", [[
-- add Players tab
-- add Credit tab
-- add slide button (misc)
+- add do 1 generator
 ]])
 
 -- Main Tab
@@ -173,6 +171,28 @@ MainTab:AddButton({
                     task.wait(0.2)
                 end
                 used[gen.RE] = true
+            end
+        end
+    end
+})
+MainTab:AddButton({
+    Name = "Do 1 Generator (No Teleport)",
+    Callback = function()
+        local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+        for _, descendant in ipairs(fullMap:GetDescendants()) do
+            if descendant:IsA("Model") and descendant.Name == "Generator" then
+                local remotes = descendant:FindFirstChild("Remotes")
+                local re = remotes and remotes:FindFirstChild("RE")
+                if re then
+                    -- Fire only one generator and break
+                    for i = 1, 4 do
+                        pcall(function()
+                            re:FireServer()
+                        end)
+                        task.wait(0.2)
+                    end
+                    break
+                end
             end
         end
     end

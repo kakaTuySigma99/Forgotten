@@ -560,7 +560,7 @@ local MileTab = Window:MakeTab({
 })
 
 MileTab:AddButton({
-    Name = "Auto Killer Milestone not work anymore",
+    Name = "Auto Killer Milestone Work",
     Callback = function()
         OrionLib:MakeNotification({
             Name = "Auto Killer Milestone",

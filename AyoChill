@@ -235,6 +235,81 @@ MainTab:AddToggle({
 		end
 	end
 })
+MainTab:AddButton({
+	Name = "get Medkit",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if not root then return end
+
+		local medkitPrompt = workspace:FindFirstChild("Map")
+			and workspace.Map:FindFirstChild("Ingame")
+			and workspace.Map.Ingame:FindFirstChild("Medkit")
+			and workspace.Map.Ingame.Medkit:FindFirstChild("ItemRoot")
+			and workspace.Map.Ingame.Medkit.ItemRoot:FindFirstChildWhichIsA("ProximityPrompt")
+
+		if medkitPrompt then
+			local originalPosition = root.Position
+			root.CFrame = CFrame.new(medkitPrompt.Parent.Position + Vector3.new(0, 2, 0))
+			task.wait(0.2)
+			fireproximityprompt(medkitPrompt)
+			task.wait(0.3)
+			root.CFrame = CFrame.new(originalPosition)
+		else
+			warn("Medkit prompt not found!")
+		end
+	end
+})
+MainTab:AddButton({
+	Name = "get BloxyCola",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if not root then return end
+
+		local colaPrompt = workspace:FindFirstChild("Map")
+			and workspace.Map:FindFirstChild("Ingame")
+			and workspace.Map.Ingame:FindFirstChild("BloxyCola")
+			and workspace.Map.Ingame.BloxyCola:FindFirstChild("ItemRoot")
+			and workspace.Map.Ingame.BloxyCola.ItemRoot:FindFirstChildWhichIsA("ProximityPrompt")
+
+		if colaPrompt then
+			local originalPosition = root.Position
+			root.CFrame = CFrame.new(colaPrompt.Parent.Position + Vector3.new(0, 2, 0))
+			task.wait(0.2)
+			fireproximityprompt(colaPrompt)
+			task.wait(0.3)
+			root.CFrame = CFrame.new(originalPosition)
+		else
+			warn("BloxyCola prompt not found!")
+		end
+	end
+})
+MainTab:AddButton({
+	Name = "Use Fries",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		if not root then return end
+
+		local friesPrompt = workspace:FindFirstChild("Map")
+			and workspace.Map:FindFirstChild("Ingame")
+			and workspace.Map.Ingame:FindFirstChild("FriesFood")
+			and workspace.Map.Ingame.FriesFood:FindFirstChild("ItemRoot")
+			and workspace.Map.Ingame.FriesFood.ItemRoot:FindFirstChildWhichIsA("ProximityPrompt")
+
+		if friesPrompt then
+			local originalPosition = root.Position
+			root.CFrame = CFrame.new(friesPrompt.Parent.Position + Vector3.new(0, 2, 0))
+			task.wait(0.2)
+			fireproximityprompt(friesPrompt)
+			task.wait(0.3)
+			root.CFrame = CFrame.new(originalPosition)
+		else
+			warn("Fries prompt not found!")
+		end
+	end
+})
 local PlayersTab = Window:MakeTab({
 	Name = "Players",
 	Icon = "rbxassetid://4483345998", -- optional icon
@@ -673,17 +748,4 @@ local CreditTab = Window:MakeTab({
 })
 CreditTab:AddLabel("Script by: kaka tu")
 CreditTab:AddLabel("Using Orion Library")
-CreditTab:AddLabel("Uhh aimbot will definitely not come since im lazy :P")
-CreditTab:AddButton({
-	Name = "Copy YouTube Link",
-	Callback = function()
-		setclipboard("https://youtu.be/jrDIjwa8r_E?si=r-POPFwEqFt0SDnX")
-		OrionLib:MakeNotification({
-			Name = "Copied!",
-			Content = "YouTube link copied to clipboard.",
-			Time = 3
-		})
-	end
-})
--- Finalize GUI
-OrionLib:Init()
+CreditTab:AddLabel("Uhh aimbot will definitel

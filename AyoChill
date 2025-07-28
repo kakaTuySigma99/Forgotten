@@ -117,7 +117,6 @@ local LogsTab = Window:MakeTab({
 })
 LogsTab:AddParagraph("Recent Updates", [[
 - add grab item
-- inf stamina watch video btw
 ]])
 
 -- Main Tab

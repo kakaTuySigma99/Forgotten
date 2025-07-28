@@ -649,6 +649,4 @@ local CreditTab = Window:MakeTab({
 CreditTab:AddLabel("Script by: kaka tu")
 CreditTab:AddLabel("Using Orion Library")
 CreditTab:AddLabel("Uhh aimbot will definitely not come since im lazy :P")
-CreditTab:AddButton({
-	Name = "Copy YouTube Link",
-	Callback = functio
+OrionLib:Init()

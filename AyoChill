@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local Window = OrionLib:MakeWindow({
-    Name = "Kaka Hub | Forgotten 2.0",
+    Name = "Kaka Hub | Forgotten 2.2",
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "KakaHub"

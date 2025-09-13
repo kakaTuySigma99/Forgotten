@@ -18,6 +18,8 @@ local LogsTab = Window:MakeTab({
 LogsTab:AddParagraph("Recent Updates", [[
 - add generator ui
 - add stamina edit - sprint
+- inf stamina idk if work
+- paragraph in main tab
 ]])
 
 -- Main Tab
@@ -83,7 +85,7 @@ MainTab:AddButton({
     end
 })
 MainTab:AddButton({
-    Name = "Do 1 Generator (No Teleport)",
+    Name = "Instant finished Generator",
     Callback = function()
         local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
         for _, descendant in ipairs(fullMap:GetDescendants()) do
@@ -104,6 +106,7 @@ MainTab:AddButton({
         end
     end
 })
+MainTab:AddParagraph("Info", "Instant Generator is still work you had to go to generator hold e then use instant gen")
 MainTab:AddToggle({
 	Name = "Semi aimbot",
 	Default = false,
@@ -457,6 +460,22 @@ MiscTab:AddToggle({
     Default = false,
     Callback = function(state)
         toggleESP(state)
+    end
+})
+MiscTab:AddButton({
+    Name = "Inf stamina",
+    Callback = function()
+        for _, module in pairs(getgc(true)) do
+            if typeof(module) == "table" and rawget(module, "StaminaLoss") then
+                module.StaminaLoss = 0
+            end
+        end
+
+        OrionLib:MakeNotification({
+            Name = "✅ Applied",
+            Content = "inf stamina",
+            Time = 3
+        })
     end
 })
 local staminaLossBox = MiscTab:AddTextbox({

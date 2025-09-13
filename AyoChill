@@ -667,8 +667,9 @@ MiscTab:AddButton({
         })
     end
 })
-LogsTab:AddParagraph("if inf stamina stop working", [[
-- btw every time new round start you had to use inf stamina again
+LogsTab:AddParagraph("inf stamina info", [[
+- btw every time new round start
+- you had to use inf stamina again
 ]])
 local staminaLossBox = MiscTab:AddTextbox({
     Name = "Stamina Loss",

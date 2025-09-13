@@ -362,18 +362,23 @@ local AimbotTab = Window:MakeTab({
     PremiumOnly = false
 })
 
-local predictionValue = 1
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local predictionValue = 3
+local gojoAimEnabled = false
+local aimConnection
+local animConnection
 
 AimbotTab:AddTextbox({
 	Name = "Prediction (stud)",
-	Default = "1",
+	Default = "3",
 	TextDisappear = true,
 	Callback = function(Value)
-		predictionValue = tonumber(Value) or 0
+		predictionValue = tonumber(Value) or 1
 	end
 })
-
-local gojoAimEnabled = false
 
 AimbotTab:AddToggle({
 	Name = "Gojo Aim",
@@ -381,47 +386,52 @@ AimbotTab:AddToggle({
 	Callback = function(Value)
 		gojoAimEnabled = Value
 
-		if Value then
-			local player = game.Players.LocalPlayer
-			local char = player.Character or player.CharacterAdded:Wait()
-			local humanoid = char:WaitForChild("Humanoid")
+		if gojoAimEnabled then
+			local humanoid = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+			if humanoid then
+				animConnection = humanoid.AnimationPlayed:Connect(function(track)
+					if tostring(track.Animation.AnimationId):match("106690525393935") then
+						if aimConnection then aimConnection:Disconnect() end
+						local start = tick()
 
-			-- Listen for animation played
-			humanoid.AnimationPlayed:Connect(function(animTrack)
-				if not gojoAimEnabled then return end
-
-				-- Check if it's Gojo animation
-				if animTrack.Animation.AnimationId == "rbxassetid://106690525393935" then
-					-- Find target with health > 333
-					local target = nil
-					for _, p in ipairs(game.Players:GetPlayers()) do
-						if p ~= player and p.Character and p.Character:FindFirstChild("Humanoid") then
-							if p.Character.Humanoid.Health > 333 then
-								target = p.Character
-								break
-							end
-						end
-					end
-
-					if target and target:FindFirstChild("HumanoidRootPart") then
-						local hrp = char:WaitForChild("HumanoidRootPart")
-						local targetPos = target.HumanoidRootPart.Position + (target.HumanoidRootPart.Velocity * (predictionValue / 100))
-						local lookCF = CFrame.lookAt(hrp.Position, targetPos)
-						
-						-- Lock aim for 1.5 sec
-						local startTime = tick()
-						local conn
-						conn = game:GetService("RunService").RenderStepped:Connect(function()
-							if tick() - startTime >= 1.5 or not gojoAimEnabled then
-								conn:Disconnect()
+						aimConnection = RunService.RenderStepped:Connect(function()
+							if not gojoAimEnabled or tick() - start > 1.5 then
+								aimConnection:Disconnect()
+								aimConnection = nil
 								return
 							end
-							hrp.CFrame = CFrame.new(hrp.Position) * CFrame.Angles(0, (lookCF - lookCF.Position).LookVector:Angle(Vector3.new(0,0,-1)), 0)
-							hrp.CFrame = lookCF
+
+							local target = nil
+							for _, plr in pairs(Players:GetPlayers()) do
+								if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("Humanoid") then
+									if plr.Character.Humanoid.Health > 333 then
+										target = plr
+										break
+									end
+								end
+							end
+
+							if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+								local root = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+								if root then
+									local targetPos = target.Character.HumanoidRootPart.Position
+									local dir = (targetPos + target.Character.HumanoidRootPart.Velocity * predictionValue - root.Position).Unit
+									root.CFrame = CFrame.new(root.Position, root.Position + dir)
+								end
+							end
 						end)
 					end
-				end
-			end)
+				end)
+			end
+		else
+			if aimConnection then
+				aimConnection:Disconnect()
+				aimConnection = nil
+			end
+			if animConnection then
+				animConnection:Disconnect()
+				animConnection = nil
+			end
 		end
 	end
 })

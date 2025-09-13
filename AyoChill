@@ -20,6 +20,7 @@ LogsTab:AddParagraph("Recent Updates", [[
 - add stamina edit - sprint
 - inf stamina idk if work
 - paragraph in main tab
+- esp for item and generator
 - Aimbot is HERE!
 ]])
 
@@ -525,6 +526,126 @@ MiscTab:AddToggle({
         toggleESP(state)
     end
 })
+local ESPEnabled = false
+local ESPTools = {}
+
+local function createESP(tool)
+    local box = Instance.new("BoxHandleAdornment")
+    box.Adornee = tool
+    box.Size = tool.Size
+    box.Color3 = Color3.fromRGB(0, 255, 0)
+    box.Transparency = 0.5
+    box.AlwaysOnTop = true
+    box.ZIndex = 10
+    box.Parent = tool
+    return box
+end
+
+local function toggleESP(value)
+    ESPEnabled = value
+    if ESPEnabled then
+        for _, tool in pairs(workspace.Map.Ingame:GetChildren()) do
+            if tool:IsA("Tool") then
+                if not ESPTools[tool] then
+                    ESPTools[tool] = createESP(tool)
+                end
+            end
+        end
+    else
+        for _, box in pairs(ESPTools) do
+            box:Destroy()
+        end
+        ESPTools = {}
+    end
+end
+
+workspace.Map.Ingame.ChildAdded:Connect(function(child)
+    if ESPEnabled and child:IsA("Tool") then
+        ESPTools[child] = createESP(child)
+    end
+end)
+
+MiscTab:AddToggle({
+    Name = "ESP item",
+    Default = false,
+    Callback = toggleESP
+})
+-- ESP Variables
+local GeneratorESPEnabled = false
+local GeneratorESP = {}
+
+local function createGeneratorESP(generator)
+    local box = Instance.new("BoxHandleAdornment")
+    box.Adornee = generator
+    box.Size = generator:GetExtentsSize()
+    box.Color3 = Color3.fromRGB(0, 255, 255)
+    box.Transparency = 0.5
+    box.AlwaysOnTop = true
+    box.ZIndex = 10
+    box.Parent = generator
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Adornee = generator
+    billboard.Size = UDim2.new(0, 100, 0, 50)
+    billboard.StudsOffset = Vector3.new(0, generator:GetExtentsSize().Y + 1, 0)
+    billboard.AlwaysOnTop = true
+    billboard.Parent = generator
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.Text = "Generator"
+    textLabel.Parent = billboard
+
+    return {Box = box, Billboard = billboard, TextLabel = textLabel, Model = generator}
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if GeneratorESPEnabled then
+        local playerPos = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        if playerPos then
+            for _, data in pairs(GeneratorESP) do
+                local distance = (data.Model.Position - playerPos).Magnitude
+                data.TextLabel.Text = string.format("Generator | %.1f studs", distance)
+            end
+        end
+    end
+end)
+
+local function toggleGeneratorESP(value)
+    GeneratorESPEnabled = value
+
+    if GeneratorESPEnabled then
+        for _, gen in pairs(workspace.Map.Ingame.Map:GetChildren()) do
+            if gen.Name:lower():find("generator") then
+                if not GeneratorESP[gen] then
+                    GeneratorESP[gen] = createGeneratorESP(gen)
+                end
+            end
+        end
+    else
+        for _, data in pairs(GeneratorESP) do
+            data.Box:Destroy()
+            data.Billboard:Destroy()
+        end
+        GeneratorESP = {}
+    end
+end
+
+MiscTab:AddToggle({
+    Name = "ESP Generators",
+    Default = false,
+    Callback = toggleGeneratorESP
+})
+
+workspace.Map.Ingame.Map.ChildAdded:Connect(function(child)
+    if GeneratorESPEnabled and child.Name:lower():find("generator") then
+        GeneratorESP[child] = createGeneratorESP(child)
+    end
+end)
 MiscTab:AddButton({
     Name = "Inf stamina",
     Callback = function()

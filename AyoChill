@@ -16,7 +16,8 @@ local LogsTab = Window:MakeTab({
     PremiumOnly = false
 })
 LogsTab:AddParagraph("Recent Updates", [[
-- add do 1 generator
+- add generator ui
+- add stamina edit - sprint
 ]])
 
 -- Main Tab
@@ -73,6 +74,12 @@ MainTab:AddButton({
                 used[gen.RE] = true
             end
         end
+    end
+})
+MainTab:AddButton({
+    Name = "Generator ui",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/BDT91tTw"))()
     end
 })
 MainTab:AddButton({
@@ -450,6 +457,55 @@ MiscTab:AddToggle({
     Default = false,
     Callback = function(state)
         toggleESP(state)
+    end
+})
+local staminaLossBox = MiscTab:AddTextbox({
+    Name = "Stamina Loss",
+    Default = "10",
+    TextDisappear = false,
+    Callback = function() end
+})
+
+local staminaGainBox = MiscTab:AddTextbox({
+    Name = "Stamina Gain",
+    Default = "20",
+    TextDisappear = false,
+    Callback = function() end
+})
+
+local sprintSpeedBox = MiscTab:AddTextbox({
+    Name = "Sprint Speed",
+    Default = "26",
+    TextDisappear = false,
+    Callback = function() end
+})
+
+MiscTab:AddButton({
+    Name = "Apply Stamina Settings",
+    Callback = function()
+        local loss = tonumber(staminaLossBox.Text) or 10
+        local gain = tonumber(staminaGainBox.Text) or 20
+        local speed = tonumber(sprintSpeedBox.Text) or 26
+
+        for _, module in pairs(getgc(true)) do
+            if typeof(module) == "table" then
+                if rawget(module, "StaminaLoss") then
+                    module.StaminaLoss = loss
+                end
+                if rawget(module, "StaminaGain") then
+                    module.StaminaGain = gain
+                end
+                if rawget(module, "SprintSpeed") then
+                    module.SprintSpeed = speed
+                end
+            end
+        end
+
+        OrionLib:MakeNotification({
+            Name = "✅ Applied",
+            Content = "Stamina settings updated!",
+            Time = 3
+        })
     end
 })
 -- Milestones Tab

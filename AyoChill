@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local Window = OrionLib:MakeWindow({
-    Name = "Kaka Hub | Forgotten 2.2",
+    Name = "Kaka Hub | Forgotten 2.3",
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "KakaHub"
@@ -17,6 +17,7 @@ local LogsTab = Window:MakeTab({
 })
 LogsTab:AddParagraph("Recent Updates", [[
 - add generator ui
+- fix do all generator
 - add stamina edit - sprint
 - inf stamina idk if work
 - paragraph in main tab
@@ -32,52 +33,88 @@ local MainTab = Window:MakeTab({
 })
 
 MainTab:AddButton({
-    Name = "Do All Generators",
+    Name = "Activate All Generators",
     Callback = function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+
+        local function getCharacter()
+            local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+            local hrp = char:WaitForChild("HumanoidRootPart")
+            local humanoid = char:WaitForChild("Humanoid")
+            return char, humanoid, hrp
+        end
+
+        local function teleportLeftOf(part, offset)
+            local _, _, hrp = getCharacter()
+            offset = offset or 5
+            local leftCFrame = part.CFrame * CFrame.new(-offset, 0, 0)
+            hrp.CFrame = leftCFrame + Vector3.new(0, 3, 0)
+        end
+
+        local function fireNearestPrompt(part, range)
+            range = range or 10
+            local _, _, hrp = getCharacter()
+            local nearestPrompt
+            local nearestDist = math.huge
+
+            for _, descendant in ipairs(part:GetDescendants()) do
+                if descendant:IsA("ProximityPrompt") then
+                    local dist = (descendant.Parent.Position - hrp.Position).Magnitude
+                    if dist < nearestDist and dist <= range then
+                        nearestPrompt = descendant
+                        nearestDist = dist
+                    end
+                end
+            end
+
+            if nearestPrompt then
+                pcall(function()
+                    nearestPrompt:InputHoldBegin()
+                    task.wait(0.5)
+                    nearestPrompt:InputHoldEnd()
+                end)
+            end
+        end
+
         local function getAllGenerators()
-            local generators = {}
-            pcall(function()
-                local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
-                for _, descendant in ipairs(fullMap:GetDescendants()) do
-                    if descendant:IsA("Model") and descendant.Name == "Generator" then
-                        local remotes = descendant:FindFirstChild("Remotes")
-                        local re = remotes and remotes:FindFirstChild("RE")
-                        local part = descendant.PrimaryPart or descendant:FindFirstChildWhichIsA("BasePart")
-                        if re and part then
-                            table.insert(generators, {RE = re, Pos = part.Position})
+            local gens = {}
+            local success, map = pcall(function()
+                return workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+            end)
+
+            if success then
+                for _, model in ipairs(map:GetDescendants()) do
+                    if model:IsA("Model") and model.Name == "Generator" then
+                        local part = model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")
+                        local re = model:FindFirstChild("Remotes") and model.Remotes:FindFirstChild("RE")
+                        if part and re then
+                            table.insert(gens, {Part = part, Remote = re})
                         end
                     end
                 end
-            end)
-            return generators
+            end
+            return gens
         end
 
-        local function waitForCharacter()
-            local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-            return char, char:WaitForChild("Humanoid"), char:WaitForChild("HumanoidRootPart")
-        end
-
-        local function teleport(pos)
-            local _, _, hrp = waitForCharacter()
-            hrp.CFrame = CFrame.new(pos + Vector3.new(0, 5, 0))
-        end
-
-        local generators = getAllGenerators()
-        local used = {}
-
-        for _, gen in pairs(generators) do
-            if not used[gen.RE] then
-                teleport(gen.Pos)
-                task.wait(1.5)
+        local function activateAllGenerators()
+            local generators = getAllGenerators()
+            for _, gen in ipairs(generators) do
+                teleportLeftOf(gen.Part, 5)
+                task.wait(0.3)
+                fireNearestPrompt(gen.Part)
+                task.wait(0.2)
                 for i = 1, 4 do
                     pcall(function()
-                        gen.RE:FireServer()
+                        gen.Remote:FireServer()
                     end)
                     task.wait(0.2)
                 end
-                used[gen.RE] = true
+                task.wait(2)
             end
         end
+
+        activateAllGenerators()
     end
 })
 MainTab:AddButton({

@@ -23,9 +23,6 @@ LogsTab:AddParagraph("Recent Updates", [[
 - esp for item and generator
 - Aimbot is HERE!
 ]])
-LogsTab:AddParagraph("if inf stamina stop working", [[
-- btw every time new round start you had to use inf stamina again
-]])
 
 -- Main Tab
 local MainTab = Window:MakeTab({
@@ -670,6 +667,9 @@ MiscTab:AddButton({
         })
     end
 })
+LogsTab:AddParagraph("if inf stamina stop working", [[
+- btw every time new round start you had to use inf stamina again
+]])
 local staminaLossBox = MiscTab:AddTextbox({
     Name = "Stamina Loss",
     Default = "10",

@@ -20,6 +20,7 @@ LogsTab:AddParagraph("Recent Updates", [[
 - add stamina edit - sprint
 - inf stamina idk if work
 - paragraph in main tab
+- Aimbot is HERE!
 ]])
 
 -- Main Tab
@@ -322,8 +323,70 @@ local AimbotTab = Window:MakeTab({
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
 })
-AimbotTab:AddLabel("Coming Soon...")
 
+local predictionValue = 1
+
+AimbotTab:AddTextbox({
+	Name = "Prediction (stud)",
+	Default = "1",
+	TextDisappear = true,
+	Callback = function(Value)
+		predictionValue = tonumber(Value) or 0
+	end
+})
+
+local gojoAimEnabled = false
+
+AimbotTab:AddToggle({
+	Name = "Gojo Aim",
+	Default = false,
+	Callback = function(Value)
+		gojoAimEnabled = Value
+
+		if Value then
+			local player = game.Players.LocalPlayer
+			local char = player.Character or player.CharacterAdded:Wait()
+			local humanoid = char:WaitForChild("Humanoid")
+
+			-- Listen for animation played
+			humanoid.AnimationPlayed:Connect(function(animTrack)
+				if not gojoAimEnabled then return end
+
+				-- Check if it's Gojo animation
+				if animTrack.Animation.AnimationId == "rbxassetid://106690525393935" then
+					-- Find target with health > 333
+					local target = nil
+					for _, p in ipairs(game.Players:GetPlayers()) do
+						if p ~= player and p.Character and p.Character:FindFirstChild("Humanoid") then
+							if p.Character.Humanoid.Health > 333 then
+								target = p.Character
+								break
+							end
+						end
+					end
+
+					if target and target:FindFirstChild("HumanoidRootPart") then
+						local hrp = char:WaitForChild("HumanoidRootPart")
+						local targetPos = target.HumanoidRootPart.Position + (target.HumanoidRootPart.Velocity * (predictionValue / 100))
+						local lookCF = CFrame.lookAt(hrp.Position, targetPos)
+						
+						-- Lock aim for 1.5 sec
+						local startTime = tick()
+						local conn
+						conn = game:GetService("RunService").RenderStepped:Connect(function()
+							if tick() - startTime >= 1.5 or not gojoAimEnabled then
+								conn:Disconnect()
+								return
+							end
+							hrp.CFrame = CFrame.new(hrp.Position) * CFrame.Angles(0, (lookCF - lookCF.Position).LookVector:Angle(Vector3.new(0,0,-1)), 0)
+							hrp.CFrame = lookCF
+						end)
+					end
+				end
+			end)
+		end
+	end
+})
 -- Misc Tab
 local MiscTab = Window:MakeTab({
     Name = "Misc",

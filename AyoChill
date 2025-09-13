@@ -33,7 +33,7 @@ local MainTab = Window:MakeTab({
 })
 
 MainTab:AddButton({
-    Name = "Activate All Generators",
+    Name = "Do All Generators",
     Callback = function()
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer

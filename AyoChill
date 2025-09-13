@@ -186,7 +186,7 @@ MainTab:AddButton({
 	end
 })
 MainTab:AddButton({
-	Name = "Use Fries",
+	Name = "Get Fries",
 	Callback = function()
 		local player = game.Players.LocalPlayer
 		local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")

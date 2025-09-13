@@ -526,11 +526,6 @@ MiscTab:AddToggle({
         toggleESP(state)
     end
 })
-MiscTab:AddParagraph("Info", [[
-esp item and generator
-doesn't work for now
-fix soon i guess
-]])
 local ESPEnabled = false
 local ESPTools = {}
 

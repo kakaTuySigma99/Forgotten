@@ -667,7 +667,7 @@ MiscTab:AddButton({
         })
     end
 })
-LogsTab:AddParagraph("inf stamina info", [[
+MiscTab:AddParagraph("inf stamina info", [[
 - btw every time new round start
 - you had to use inf stamina again
 ]])

@@ -295,29 +295,31 @@ MiscTab:AddButton({
     end
 })
 
-MiscTab:AddSlider("WalkSpeedSlider", {
+local MiscTab = Window:AddTab({ Title = "Misc", Icon = "settings" })
+
+local WalkSpeedBox = MiscTab:AddInput("WalkSpeedInput", {
     Title = "WalkSpeed",
-    Min = 16,
-    Max = 200,
-    Default = 16,
-    Rounding = 1,
-    Callback = function(value)
-        local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-        local hum = char:FindFirstChildOfClass("Humanoid")
-        if hum then hum.WalkSpeed = value end
-    end
+    Placeholder = "Enter walk speed (e.g., 16)",
+    Default = "16"
 })
 
-MiscTab:AddSlider("JumpPowerSlider", {
+local JumpPowerBox = MiscTab:AddInput("JumpPowerInput", {
     Title = "JumpPower",
-    Min = 50,
-    Max = 300,
-    Default = 50,
-    Rounding = 1,
-    Callback = function(value)
+    Placeholder = "Enter jump power (e.g., 50)",
+    Default = "50"
+})
+
+MiscTab:AddButton({
+    Title = "Apply Speed & Jump",
+    Callback = function()
+        local ws = tonumber(WalkSpeedBox.Value) or 16
+        local jp = tonumber(JumpPowerBox.Value) or 50
         local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
         local hum = char:FindFirstChildOfClass("Humanoid")
-        if hum then hum.JumpPower = value end
+        if hum then
+            hum.WalkSpeed = ws
+            hum.JumpPower = jp
+        end
     end
 })
 

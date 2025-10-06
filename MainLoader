@@ -224,8 +224,8 @@ local function updatePlayerList()
 end
 
 updatePlayerList()
-Players.PlayerAdded:Connect(updatePlayerList)
-Players.PlayerRemoving:Connect(updatePlayerList)
+game.Players.PlayerAdded:Connect(updatePlayerList)
+game.Players.PlayerRemoving:Connect(updatePlayerList)
 
 PlayersDropdown:OnChanged(function(selected)
     local target = game.Players:FindFirstChild(selected)
@@ -243,7 +243,7 @@ PlayerTab:AddButton({
         local target = game.Players:FindFirstChild(selected)
         local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
         if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") and hrp then
-            hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+            hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0,3,0)
         end
     end
 })
@@ -263,19 +263,19 @@ PlayerTab:AddButton({
         end
         local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
         if lowest and lowest.Character and lowest.Character:FindFirstChild("HumanoidRootPart") and hrp then
-            hrp.CFrame = lowest.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+            hrp.CFrame = lowest.Character.HumanoidRootPart.CFrame + Vector3.new(0,3,0)
         end
     end
 })
 
-local MiscTab = Window:AddTab({ Title = "Misc", Icon = "rbxassetid://4483345998" })
+local MiscTab = Window:AddTab({ Title = "Misc", Icon = "settings" })
 
 local slideCooldown = false
 MiscTab:AddButton({
     Title = "Slide",
     Callback = function()
         if slideCooldown then return end
-        local char = LocalPlayer.Character
+        local char = game.Players.LocalPlayer.Character
         if not char then return end
         local hrp = char:FindFirstChild("HumanoidRootPart")
         local hum = char:FindFirstChildOfClass("Humanoid")
@@ -295,75 +295,34 @@ MiscTab:AddButton({
     end
 })
 
-MiscTab:AddSlider({
+MiscTab:AddSlider("WalkSpeedSlider", {
     Title = "WalkSpeed",
     Min = 16,
     Max = 200,
     Default = 16,
-    Increment = 1,
+    Rounding = 1,
     Callback = function(value)
-        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
         local hum = char:FindFirstChildOfClass("Humanoid")
         if hum then hum.WalkSpeed = value end
     end
 })
 
-MiscTab:AddSlider({
+MiscTab:AddSlider("JumpPowerSlider", {
     Title = "JumpPower",
     Min = 50,
     Max = 300,
     Default = 50,
-    Increment = 1,
+    Rounding = 1,
     Callback = function(value)
-        local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
         local hum = char:FindFirstChildOfClass("Humanoid")
         if hum then hum.JumpPower = value end
     end
 })
 
-local espEnabled = false
-local espBoxes = {}
-local function toggleESP(state)
-    espEnabled = state
-    for _, box in pairs(espBoxes) do box:Destroy() end
-    table.clear(espBoxes)
-    if not espEnabled then return end
-    task.spawn(function()
-        while espEnabled do
-            for _, player in pairs(Players:GetPlayers()) do
-                if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                    if not espBoxes[player] then
-                        local box = Instance.new("BoxHandleAdornment")
-                        box.Size = Vector3.new(4,6,2)
-                        box.Color3 = Color3.new(1,0,0)
-                        box.Adornee = player.Character.HumanoidRootPart
-                        box.AlwaysOnTop = true
-                        box.ZIndex = 5
-                        box.Transparency = 0.5
-                        box.Parent = game.CoreGui
-                        espBoxes[player] = box
-                    end
-                end
-            end
-            for p, box in pairs(espBoxes) do
-                if not p:IsDescendantOf(Players) or not p.Character or not p.Character:FindFirstChild("HumanoidRootPart") then
-                    box:Destroy()
-                    espBoxes[p] = nil
-                end
-            end
-            task.wait(1)
-        end
-    end)
-end
-
-MiscTab:AddToggle({
-    Title = "Player ESP",
-    Default = false,
-    Callback = toggleESP
-})
-
 MiscTab:AddButton({
-    Title = "Inf stamina",
+    Title = "Inf Stamina",
     Callback = function()
         for _, module in pairs(getgc(true)) do
             if typeof(module) == "table" and rawget(module,"StaminaLoss") then
@@ -373,11 +332,14 @@ MiscTab:AddButton({
     end
 })
 
-MiscTab:AddParagraph({ Title = "Inf stamina info", Content = "- every new round restart, reapply inf stamina" })
+MiscTab:AddParagraph({
+    Title = "Inf stamina info",
+    Content = "- every new round restart, reapply inf stamina"
+})
 
 MiscTab:AddTextbox({
     Title = "Stamina Loss",
     Default = "10",
-    TextDisappear = false,
+    Finished = false,
     Callback = function() end
 })

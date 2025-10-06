@@ -5,16 +5,18 @@ local LocalPlayer = Players.LocalPlayer
 local Window = Fluent:CreateWindow({
     Title = "Kaka Hub | Forgotten 2.3",
     SubTitle = "by Kaka",
-    TabWidth = 160,
+    TabWidth = 100,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true,
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.RightControl
 })
 
-local LogsTab = Window:AddTab({ Title = "Update Logs", Icon = "rbxassetid://4483345998" })
-LogsTab:AddParagraph({
-    Title = "Recent Updates",
+local HomeTab = Window:AddTab({ Title = "Home", Icon = "rbxassetid://4483345998" })
+
+local logSection = HomeTab:AddSection("Recent Updates")
+HomeTab:AddParagraph({
+    Title = "Update Log",
     Content = [[
 - add generator ui
 - fix do all generator
@@ -25,6 +27,28 @@ LogsTab:AddParagraph({
 - Aimbot is HERE!
 ]]
 })
+
+local timeLabel = HomeTab:AddParagraph({
+    Title = "Time Zones",
+    Content = "Loading..."
+})
+
+task.spawn(function()
+    while task.wait(1) do
+        local now = os.time()
+        local utc = os.date("!%H:%M:%S", now)
+        local localt = os.date("%H:%M:%S", now)
+        local bangkok = os.date("!%H:%M:%S", now + 7 * 3600)
+        local newyork = os.date("!%H:%M:%S", now - 4 * 3600)
+        local london = os.date("!%H:%M:%S", now + 0 * 3600)
+        local tokyo = os.date("!%H:%M:%S", now + 9 * 3600)
+
+        timeLabel:Set({
+            Title = "Time Zones",
+            Content = string.format("Local: %s\nUTC: %s\nBangkok: %s\nNew York: %s\nLondon: %s\nTokyo: %s", localt, utc, bangkok, newyork, london, tokyo)
+        })
+    end
+end)
 
 local MainTab = Window:AddTab({ Title = "Main", Icon = "rbxassetid://4483345998" })
 
@@ -236,6 +260,76 @@ MainTab:AddButton({
             fireproximityprompt(friesPrompt)
             task.wait(0.3)
             root.CFrame = CFrame.new(originalPosition)
+        end
+    end
+})
+
+local PlayerTab = Window:AddTab({ Title = "Players", Icon = "users" })
+
+local PlayersDropdown = PlayerTab:AddDropdown("PlayerList", {
+    Title = "Select Player",
+    Values = {},
+    Multi = false,
+    Default = nil
+})
+
+local HealthLabel = PlayerTab:AddParagraph({
+    Title = "Target Health",
+    Content = "Select a player to see health"
+})
+
+local function updatePlayerList()
+    local names = {}
+    for _, p in ipairs(game.Players:GetPlayers()) do
+        if p ~= game.Players.LocalPlayer then
+            table.insert(names, p.Name)
+        end
+    end
+    PlayersDropdown:SetValue(names[1] or "")
+    PlayersDropdown.Values = names
+end
+
+updatePlayerList()
+Players.PlayerAdded:Connect(updatePlayerList)
+Players.PlayerRemoving:Connect(updatePlayerList)
+
+PlayersDropdown:OnChanged(function(selected)
+    local target = game.Players:FindFirstChild(selected)
+    if target and target.Character and target.Character:FindFirstChildOfClass("Humanoid") then
+        HealthLabel:Set({Title = "Target Health", Content = tostring(target.Character:FindFirstChildOfClass("Humanoid").Health)})
+    else
+        HealthLabel:Set({Title = "Target Health", Content = "Unavailable"})
+    end
+end)
+
+PlayerTab:AddButton({
+    Title = "Teleport to Selected Player",
+    Callback = function()
+        local selected = PlayersDropdown.Value
+        local target = game.Players:FindFirstChild(selected)
+        local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") and hrp then
+            hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+        end
+    end
+})
+
+PlayerTab:AddButton({
+    Title = "Teleport to Lowest Health Player",
+    Callback = function()
+        local lowest, dist = nil, math.huge
+        for _, p in ipairs(game.Players:GetPlayers()) do
+            if p ~= game.Players.LocalPlayer and p.Character then
+                local hum = p.Character:FindFirstChildOfClass("Humanoid")
+                if hum and hum.Health < dist then
+                    dist = hum.Health
+                    lowest = p
+                end
+            end
+        end
+        local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if lowest and lowest.Character and lowest.Character:FindFirstChild("HumanoidRootPart") and hrp then
+            hrp.CFrame = lowest.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
         end
     end
 })

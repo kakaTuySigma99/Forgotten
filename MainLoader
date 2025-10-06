@@ -1,4 +1,3 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/27S1ytte"))()
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -318,14 +317,32 @@ MiscTab:AddTextbox({
     end
 })
 
-local UIColorpicker = MiscTab:AddColorpicker("UIColorpicker", {
-    Title = "UI Color",
-    Default = Color3.fromRGB(96, 205, 255)
+local availableThemes = {"Dark", "Light", "Aqua", "Amethyst"}
+MiscTab:AddDropdown("ThemeSelector", {
+    Title = "GUI Theme",
+    Values = availableThemes,
+    Multi = false,
+    Default = "Dark", -- Matches initial theme set in Window:CreateWindow
+    Callback = function(value)
+        local success, errorMsg = pcall(function()
+            Fluent:SetTheme(value)
+        end)
+        if success then
+            Fluent:Notify({
+                Title = "Theme Changed",
+                Content = "GUI theme set to " .. value,
+                Duration = 3
+            })
+            getgenv().SelectedTheme = value
+        else
+            Fluent:Notify({
+                Title = "Theme Error",
+                Content = "Failed to set theme: " .. tostring(errorMsg),
+                Duration = 5
+            })
+        end
+    end
 })
-
-UIColorpicker:OnChanged(function()
-    Window:SetThemeColor(UIColorpicker.Value)
-end)
 
 Window:OnDestroy(function()
     playerAddedConn:Disconnect()

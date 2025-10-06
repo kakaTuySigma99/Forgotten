@@ -318,6 +318,15 @@ MiscTab:AddTextbox({
     end
 })
 
+local UIColorpicker = MiscTab:AddColorpicker("UIColorpicker", {
+    Title = "UI Color",
+    Default = Color3.fromRGB(96, 205, 255)
+})
+
+UIColorpicker:OnChanged(function()
+    Window:SetThemeColor(UIColorpicker.Value)
+end)
+
 Window:OnDestroy(function()
     playerAddedConn:Disconnect()
     playerRemovingConn:Disconnect()

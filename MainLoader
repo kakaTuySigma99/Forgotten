@@ -160,43 +160,6 @@ MainTab:AddButton({
 
 MainTab:AddParagraph({ Title = "Info", Content = "Instant Generator is still work you had to go to generator hold e then use instant gen" })
 
-MainTab:AddToggle({
-    Title = "Semi aimbot",
-    Default = false,
-    Callback = function(Value)
-        getgenv().FaceHighHP = Value
-        if Value then
-            task.spawn(function()
-                while getgenv().FaceHighHP do
-                    local myChar = Players.LocalPlayer.Character
-                    local myHRP = myChar and myChar:FindFirstChild("HumanoidRootPart")
-                    if myHRP then
-                        local target = nil
-                        local minDist = math.huge
-                        for _, plr in pairs(Players:GetPlayers()) do
-                            if plr ~= Players.LocalPlayer and plr.Character then
-                                local hum = plr.Character:FindFirstChildOfClass("Humanoid")
-                                local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
-                                if hum and hrp and hum.Health > 200 then
-                                    local dist = (hrp.Position - myHRP.Position).Magnitude
-                                    if dist < minDist then
-                                        minDist = dist
-                                        target = hrp
-                                    end
-                                end
-                            end
-                        end
-                        if target then
-                            local lookPos = Vector3.new(target.Position.X, myHRP.Position.Y, target.Position.Z)
-                            myHRP.CFrame = CFrame.new(myHRP.Position, lookPos)
-                        end
-                    end
-                    task.wait(0.1)
-                end
-            end)
-        end
-    end
-})
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer

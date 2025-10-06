@@ -198,13 +198,16 @@ MainTab:AddToggle({
     end
 })
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
 local PlayerTab = Window:AddTab({ Title = "Players", Icon = "users" })
 
 local PlayersDropdown = PlayerTab:AddDropdown("PlayerList", {
     Title = "Select Player",
-    Values = {},
+    Values = {"No Players"},
     Multi = false,
-    Default = nil
+    Default = "No Players"
 })
 
 local HealthLabel = PlayerTab:AddParagraph({
@@ -214,25 +217,36 @@ local HealthLabel = PlayerTab:AddParagraph({
 
 local function updatePlayerList()
     local names = {}
-    for _, p in ipairs(game.Players:GetPlayers()) do
-        if p ~= game.Players.LocalPlayer then
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LocalPlayer then
             table.insert(names, p.Name)
         end
     end
-    PlayersDropdown:SetValue(names[1] or "")
+    if #names == 0 then
+        names = {"No Players"}
+    end
     PlayersDropdown.Values = names
+    PlayersDropdown:SetValue(names[1])
 end
 
 updatePlayerList()
-game.Players.PlayerAdded:Connect(updatePlayerList)
-game.Players.PlayerRemoving:Connect(updatePlayerList)
+local playerAddedConn = Players.PlayerAdded:Connect(updatePlayerList)
+local playerRemovingConn = Players.PlayerRemoving:Connect(updatePlayerList)
 
-PlayersDropdown:OnChanged(function(selected)
-    local target = game.Players:FindFirstChild(selected)
-    if target and target.Character and target.Character:FindFirstChildOfClass("Humanoid") then
-        HealthLabel:Set({Title = "Target Health", Content = tostring(target.Character:FindFirstChildOfClass("Humanoid").Health)})
-    else
-        HealthLabel:Set({Title = "Target Health", Content = "Unavailable"})
+task.spawn(function()
+    while task.wait(0.5) do
+        local selected = PlayersDropdown.Value
+        if selected and selected ~= "No Players" then
+            local target = Players:FindFirstChild(selected)
+            if target and target.Character and target.Character:FindFirstChildOfClass("Humanoid") then
+                local health = target.Character:FindFirstChildOfClass("Humanoid").Health
+                HealthLabel:Set({Title = "Target Health", Content = tostring(math.floor(health))})
+            else
+                HealthLabel:Set({Title = "Target Health", Content = "Unavailable"})
+            end
+        else
+            HealthLabel:Set({Title = "Target Health", Content = "Select a player"})
+        end
     end
 end)
 
@@ -240,10 +254,11 @@ PlayerTab:AddButton({
     Title = "Teleport to Selected Player",
     Callback = function()
         local selected = PlayersDropdown.Value
-        local target = game.Players:FindFirstChild(selected)
-        local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if selected == "No Players" then return end
+        local target = Players:FindFirstChild(selected)
+        local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
         if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") and hrp then
-            hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0,3,0)
+            hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
         end
     end
 })
@@ -252,18 +267,18 @@ PlayerTab:AddButton({
     Title = "Teleport to Lowest Health Player",
     Callback = function()
         local lowest, dist = nil, math.huge
-        for _, p in ipairs(game.Players:GetPlayers()) do
-            if p ~= game.Players.LocalPlayer and p.Character then
+        for _, p in ipairs(Players:GetPlayers()) do
+            if p ~= LocalPlayer and p.Character then
                 local hum = p.Character:FindFirstChildOfClass("Humanoid")
-                if hum and hum.Health < dist then
+                if hum and hum.Health < dist and hum.Health > 0 then
                     dist = hum.Health
                     lowest = p
                 end
             end
         end
-        local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+        local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
         if lowest and lowest.Character and lowest.Character:FindFirstChild("HumanoidRootPart") and hrp then
-            hrp.CFrame = lowest.Character.HumanoidRootPart.CFrame + Vector3.new(0,3,0)
+            hrp.CFrame = lowest.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
         end
     end
 })
@@ -275,7 +290,7 @@ MiscTab:AddButton({
     Title = "Slide",
     Callback = function()
         if slideCooldown then return end
-        local char = game.Players.LocalPlayer.Character
+        local char = LocalPlayer.Character
         if not char then return end
         local hrp = char:FindFirstChild("HumanoidRootPart")
         local hum = char:FindFirstChildOfClass("Humanoid")
@@ -283,10 +298,10 @@ MiscTab:AddButton({
         local moveDir = hum.MoveDirection
         if moveDir.Magnitude == 0 then
             local cam = workspace.CurrentCamera
-            moveDir = cam and cam.CFrame.LookVector or Vector3.new(0,0,1)
+            moveDir = cam and cam.CFrame.LookVector or Vector3.new(0, 0, 1)
         end
         local bv = Instance.new("BodyVelocity")
-        bv.MaxForce = Vector3.new(1e5,0,1e5)
+        bv.MaxForce = Vector3.new(1e5, 0, 1e5)
         bv.Velocity = moveDir.Unit * 80
         bv.Parent = hrp
         slideCooldown = true
@@ -295,53 +310,51 @@ MiscTab:AddButton({
     end
 })
 
-local MiscTab = Window:AddTab({ Title = "Misc", Icon = "settings" })
+local WalkSpeedBox = MiscTab:AddInput("WalkSpeedInput", {Title = "WalkSpeed", Placeholder = "Enter walk speed (e.g., 16)", Default = "16"})
+local JumpPowerBox = MiscTab:AddInput("JumpPowerInput", {Title = "JumpPower", Placeholder = "Enter jump power (e.g., 50)", Default = "50"})
 
-local WalkSpeedBox = MiscTab:AddInput("WalkSpeedInput", {
-    Title = "WalkSpeed",
-    Placeholder = "Enter walk speed (e.g., 16)",
-    Default = "16"
-})
-
-local JumpPowerBox = MiscTab:AddInput("JumpPowerInput", {
-    Title = "JumpPower",
-    Placeholder = "Enter jump power (e.g., 50)",
-    Default = "50"
-})
-
-MiscTab:AddButton({
-    Title = "Apply Speed & Jump",
-    Callback = function()
-        local ws = tonumber(WalkSpeedBox.Value) or 16
-        local jp = tonumber(JumpPowerBox.Value) or 50
-        local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local function applySpeedAndJump()
+    local ws = tonumber(WalkSpeedBox.Value) or 16
+    local jp = tonumber(JumpPowerBox.Value) or 50
+    local char = LocalPlayer.Character
+    if char then
         local hum = char:FindFirstChildOfClass("Humanoid")
         if hum then
             hum.WalkSpeed = ws
             hum.JumpPower = jp
         end
     end
-})
+end
+
+MiscTab:AddButton({Title = "Apply Speed & Jump", Callback = applySpeedAndJump})
+LocalPlayer.CharacterAdded:Connect(function() task.wait(1); applySpeedAndJump() end)
 
 MiscTab:AddButton({
     Title = "Inf Stamina",
     Callback = function()
         for _, module in pairs(getgc(true)) do
-            if typeof(module) == "table" and rawget(module,"StaminaLoss") then
+            if typeof(module) == "table" and rawget(module, "StaminaLoss") then
                 module.StaminaLoss = 0
             end
         end
     end
 })
 
-MiscTab:AddParagraph({
-    Title = "Inf stamina info",
-    Content = "- every new round restart, reapply inf stamina"
-})
-
 MiscTab:AddTextbox({
     Title = "Stamina Loss",
     Default = "10",
-    Finished = false,
-    Callback = function() end
+    Finished = true,
+    Callback = function(value)
+        local staminaValue = tonumber(value)
+        for _, module in pairs(getgc(true)) do
+            if typeof(module) == "table" and rawget(module, "StaminaLoss") then
+                module.StaminaLoss = staminaValue
+            end
+        end
+    end
 })
+
+Window:OnDestroy(function()
+    playerAddedConn:Disconnect()
+    playerRemovingConn:Disconnect()
+end)

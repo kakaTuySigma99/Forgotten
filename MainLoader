@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/kxaSjguk"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/27S1ytte"))()
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer

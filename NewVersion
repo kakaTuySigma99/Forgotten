@@ -1,325 +1,101 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
 local Window = Rayfield:CreateWindow({
-    Name = "Kaka Hub | Forgotten 2.3",
-    LoadingTitle = "Kaka Hub",
-    LoadingSubtitle = "by Kakatu",
-    ShowText = "Rayfield",
-    Theme = "Default",
-    ToggleUIKeybind = "K",
-    ConfigurationSaving = {Enabled = false},
-    KeySystem = false
+   Name = "Kaka Hub | Forgotten 2.3",
+   LoadingTitle = "Kaka Hub",
+   LoadingSubtitle = "by Kakatu",
+   ShowText = "Rayfield",
+   Theme = "Default",
+   ToggleUIKeybind = "K",
+   ConfigurationSaving = {Enabled = true, FolderName = "KakaHub", FileName = "Config"},
+   Discord = {Enabled = false},
+   KeySystem = false
 })
 
-local LogsTab = Window:CreateTab("Update Logs", 4483345998)
-LogsTab:CreateLabel("Recent Updates:")
-LogsTab:CreateLabel([[
-- add generator ui
-- fix do all generator
-- add stamina edit - sprint
-- inf stamina idk if work
-- paragraph in main tab
-- esp for item and generator
-- Aimbot is HERE!
-]])
+local MainTab = Window:CreateTab("Main")
 
-local MainTab = Window:CreateTab("Main", 4483345998)
+local Options = {"Do All Generators", "Generator UI"}
+local selectedOption = Options[1]
 
-local options = {"All Generators", "Medkit & Cola & Fries", "Instant Generator"}
-local selectedOption = {"All Generators"}
-
-local Dropdown = MainTab:CreateDropdown({
+MainTab:CreateDropdown({
     Name = "Select Action",
-    Options = options,
+    Options = Options,
     CurrentOption = selectedOption,
-    MultipleOptions = false,
-    Flag = "ActionDropdown",
-    Callback = function(optionTable)
-        selectedOption = optionTable
+    Callback = function(value)
+        selectedOption = value
     end
 })
 
-local function getCharacter()
-    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-    local hrp = char:WaitForChild("HumanoidRootPart")
-    local humanoid = char:WaitForChild("Humanoid")
-    return char, humanoid, hrp
-end
+MainTab:CreateButton({
+    Name = "Execute",
+    Callback = function()
+        if selectedOption == "Do All Generators" then
+            local Players = game:GetService("Players")
+            local LocalPlayer = Players.LocalPlayer
 
-local function teleportToPart(part, offset)
-    local _, _, hrp = getCharacter()
-    offset = offset or 5
-    hrp.CFrame = part.CFrame * CFrame.new(0, 3, 0) + Vector3.new(0, offset, 0)
-end
-
-local function fireNearestPrompt(part)
-    local _, _, hrp = getCharacter()
-    local nearestPrompt
-    local nearestDist = math.huge
-    for _, descendant in ipairs(part:GetDescendants()) do
-        if descendant:IsA("ProximityPrompt") then
-            local dist = (descendant.Parent.Position - hrp.Position).Magnitude
-            if dist < nearestDist then
-                nearestPrompt = descendant
-                nearestDist = dist
+            local function getCharacter()
+                local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                local hrp = char:WaitForChild("HumanoidRootPart")
+                local humanoid = char:WaitForChild("Humanoid")
+                return char, humanoid, hrp
             end
-        end
-    end
-    if nearestPrompt then
-        pcall(function()
-            nearestPrompt:InputHoldBegin()
-            task.wait(0.5)
-            nearestPrompt:InputHoldEnd()
-        end)
-    end
-end
 
-local function getAllGenerators()
-    local gens = {}
-    local success, map = pcall(function()
-        return workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
-    end)
-    if success then
-        for _, model in ipairs(map:GetDescendants()) do
-            if model:IsA("Model") and model.Name == "Generator" then
-                local part = model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")
-                local re = model:FindFirstChild("Remotes") and model.Remotes:FindFirstChild("RE")
-                if part and re then
-                    table.insert(gens, {Part = part, Remote = re})
+            local function teleportToCenter(part)
+                local _, hrp = getCharacter()
+                local centerPart = part:FindFirstChild("Positions") and part.Positions:FindFirstChild("Center")
+                if centerPart then
+                    hrp.CFrame = CFrame.new(centerPart.Position)
+                else
+                    hrp.CFrame = CFrame.new(part.Position)
                 end
             end
-        end
-    end
-    return gens
-end
 
-local function activateAllGenerators()
-    local generators = getAllGenerators()
-    for _, gen in ipairs(generators) do
-        teleportToPart(gen.Part)
-        task.wait(0.3)
-        fireNearestPrompt(gen.Part)
-        task.wait(0.2)
-        for i = 1, 4 do
-            pcall(function() gen.Remote:FireServer() end)
-            task.wait(0.2)
-        end
-        task.wait(2)
-    end
-end
-
-local function grabItems()
-    local player = LocalPlayer
-    local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-    if not root then return end
-
-    local items = {
-        {"Medkit", workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("Medkit")},
-        {"BloxyCola", workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("BloxyCola")},
-        {"Fries", workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("FriesFood")}
-    }
-
-    for _, item in ipairs(items) do
-        if item[2] then
-            local prompt = item[2]:FindFirstChild("ItemRoot") and item[2].ItemRoot:FindFirstChildWhichIsA("ProximityPrompt")
-            if prompt then
-                local originalPosition = root.Position
-                root.CFrame = CFrame.new(prompt.Parent.Position + Vector3.new(0, 2, 0))
-                task.wait(0.2)
-                fireproximityprompt(prompt)
-                task.wait(0.3)
-                root.CFrame = CFrame.new(originalPosition)
-            end
-        end
-    end
-end
-
-MainTab:CreateButton({
-    Name = "Execute Selected",
-    Callback = function()
-        local choice = selectedOption[1]
-        if choice == "All Generators" then
-            activateAllGenerators()
-        elseif choice == "Medkit & Cola & Fries" then
-            grabItems()
-        elseif choice == "Instant Generator" then
-            print("Instant Generator triggered")
-        end
-    end
-})
-
-MainTab:CreateButton({
-    Name = "Generator UI",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/BDT91tTw"))()
-    end
-})
-
-MainTab:CreateButton({
-    Name = "Instant Finished Generator",
-    Callback = function()
-        local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
-        for _, descendant in ipairs(fullMap:GetDescendants()) do
-            if descendant:IsA("Model") and descendant.Name == "Generator" then
-                local remotes = descendant:FindFirstChild("Remotes")
-                local re = remotes and remotes:FindFirstChild("RE")
-                if re then
-                    for i = 1, 4 do
+            local function fireNearestPrompt(part)
+                local _, hrp = getCharacter()
+                for _, descendant in ipairs(part:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
                         pcall(function()
-                            re:FireServer()
+                            descendant:InputHoldBegin()
+                            task.wait(0.5)
+                            descendant:InputHoldEnd()
                         end)
-                        task.wait(0.2)
                     end
-                    break
                 end
             end
-        end
-    end
-})
 
-local ItemsTab = MainTab:CreateTab("Items", 4483345998)
+            local function getAllGenerators()
+                local gens = {}
+                local success, map = pcall(function()
+                    return workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+                end)
+                if success then
+                    for _, model in ipairs(map:GetDescendants()) do
+                        if model:IsA("Model") and model.Name == "Generator" then
+                            local part = model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")
+                            local re = model:FindFirstChild("Remotes") and model.Remotes:FindFirstChild("RE")
+                            if part and re then
+                                table.insert(gens, {Part = part, Remote = re})
+                            end
+                        end
+                    end
+                end
+                return gens
+            end
 
-local itemOptions = {"Medkit", "BloxyCola", "Fries"}
-local selectedItems = {"Medkit"}
-
-local ItemDropdown = ItemsTab:CreateDropdown({
-    Name = "Select Item(s)",
-    Options = itemOptions,
-    CurrentOption = selectedItems,
-    MultipleOptions = true,
-    Flag = "ItemDropdown",
-    Callback = function(Options)
-        selectedItems = Options
-    end
-})
-
-ItemsTab:CreateButton({
-    Name = "Grab Selected Items",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-        local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-        if not root then return end
-
-        local itemPrompts = {
-            Medkit = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("Medkit"),
-            BloxyCola = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("BloxyCola"),
-            Fries = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("FriesFood")
-        }
-
-        for _, itemName in ipairs(selectedItems) do
-            local item = itemPrompts[itemName]
-            if item then
-                local prompt = item:FindFirstChild("ItemRoot") and item.ItemRoot:FindFirstChildWhichIsA("ProximityPrompt")
-                if prompt then
-                    local originalPosition = root.Position
-                    root.CFrame = CFrame.new(prompt.Parent.Position + Vector3.new(0, 2, 0))
+            local generators = getAllGenerators()
+            for _, gen in ipairs(generators) do
+                teleportToCenter(gen.Part)
+                task.wait(0.3)
+                fireNearestPrompt(gen.Part)
+                task.wait(0.2)
+                for i = 1, 4 do
+                    pcall(function() gen.Remote:FireServer() end)
                     task.wait(0.2)
-                    fireproximityprompt(prompt)
-                    task.wait(0.3)
-                    root.CFrame = CFrame.new(originalPosition)
                 end
+                task.wait(1)
             end
+
+        elseif selectedOption == "Generator UI" then
+            loadstring(game:HttpGet("https://pastebin.com/raw/BDT91tTw"))()
         end
     end
 })
-
-local PlayersTab = Window:MakeTab({
-	Name = "Players",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
-
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
-local function getOtherPlayers()
-	local names = {}
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player ~= LocalPlayer then
-			table.insert(names, player.Name)
-		end
-	end
-	return names
-end
-
-local selectedPlayer = nil
-
-local dropdown = PlayersTab:CreateDropdown({
-	Name = "Select Player",
-	Options = getOtherPlayers(),
-	CurrentOption = {""},
-	MultipleOptions = false,
-	Flag = "PlayerDropdown",
-	Callback = function(value)
-		selectedPlayer = value[1]
-	end
-})
-
-Players.PlayerAdded:Connect(function()
-	dropdown:Set(getOtherPlayers())
-end)
-
-Players.PlayerRemoving:Connect(function()
-	dropdown:Set(getOtherPlayers())
-end)
-
-PlayersTab:CreateButton({
-	Name = "Go to Target",
-	Callback = function()
-		if selectedPlayer then
-			local target = Players:FindFirstChild(selectedPlayer)
-			if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-				local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-				if hrp then
-					hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
-				end
-			end
-		end
-	end
-})
-
-local loopTP = false
-
-PlayersTab:CreateToggle({
-	Name = "Loop TP to Target",
-	Default = false,
-	Flag = "LoopTP",
-	Callback = function(state)
-		loopTP = state
-		task.spawn(function()
-			while loopTP do
-				task.wait(0.2)
-				if selectedPlayer then
-					local target = Players:FindFirstChild(selectedPlayer)
-					if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-						local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-						if hrp then
-							hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
-						end
-					end
-				end
-			end
-		end)
-	end
-})
-
-local targetHealthLabel = PlayersTab:CreateLabel({
-	Name = "Target Health: N/A"
-})
-
-task.spawn(function()
-	while task.wait(0.5) do
-		if selectedPlayer then
-			local target = Players:FindFirstChild(selectedPlayer)
-			if target and target.Character and target.Character:FindFirstChildOfClass("Humanoid") then
-				targetHealthLabel:Set("Target Health: "..math.floor(target.Character:FindFirstChildOfClass("Humanoid").Health))
-			else
-				targetHealthLabel:Set("Target Health: N/A")
-			end
-		else
-			targetHealthLabel:Set("Target Health: N/A")
-		end
-	end
-end)

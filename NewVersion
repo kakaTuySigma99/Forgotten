@@ -149,3 +149,177 @@ MainTab:CreateButton({
         end
     end
 })
+
+MainTab:CreateButton({
+    Name = "Generator UI",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/BDT91tTw"))()
+    end
+})
+
+MainTab:CreateButton({
+    Name = "Instant Finished Generator",
+    Callback = function()
+        local fullMap = workspace:WaitForChild("Map"):WaitForChild("Ingame"):WaitForChild("Map")
+        for _, descendant in ipairs(fullMap:GetDescendants()) do
+            if descendant:IsA("Model") and descendant.Name == "Generator" then
+                local remotes = descendant:FindFirstChild("Remotes")
+                local re = remotes and remotes:FindFirstChild("RE")
+                if re then
+                    for i = 1, 4 do
+                        pcall(function()
+                            re:FireServer()
+                        end)
+                        task.wait(0.2)
+                    end
+                    break
+                end
+            end
+        end
+    end
+})
+
+local ItemsTab = MainTab:CreateTab("Items", 4483345998)
+
+local itemOptions = {"Medkit", "BloxyCola", "Fries"}
+local selectedItems = {"Medkit"}
+
+local ItemDropdown = ItemsTab:CreateDropdown({
+    Name = "Select Item(s)",
+    Options = itemOptions,
+    CurrentOption = selectedItems,
+    MultipleOptions = true,
+    Flag = "ItemDropdown",
+    Callback = function(Options)
+        selectedItems = Options
+    end
+})
+
+ItemsTab:CreateButton({
+    Name = "Grab Selected Items",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+        if not root then return end
+
+        local itemPrompts = {
+            Medkit = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("Medkit"),
+            BloxyCola = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("BloxyCola"),
+            Fries = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame") and workspace.Map.Ingame:FindFirstChild("FriesFood")
+        }
+
+        for _, itemName in ipairs(selectedItems) do
+            local item = itemPrompts[itemName]
+            if item then
+                local prompt = item:FindFirstChild("ItemRoot") and item.ItemRoot:FindFirstChildWhichIsA("ProximityPrompt")
+                if prompt then
+                    local originalPosition = root.Position
+                    root.CFrame = CFrame.new(prompt.Parent.Position + Vector3.new(0, 2, 0))
+                    task.wait(0.2)
+                    fireproximityprompt(prompt)
+                    task.wait(0.3)
+                    root.CFrame = CFrame.new(originalPosition)
+                end
+            end
+        end
+    end
+})
+
+local PlayersTab = Window:MakeTab({
+	Name = "Players",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function getOtherPlayers()
+	local names = {}
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= LocalPlayer then
+			table.insert(names, player.Name)
+		end
+	end
+	return names
+end
+
+local selectedPlayer = nil
+
+local dropdown = PlayersTab:CreateDropdown({
+	Name = "Select Player",
+	Options = getOtherPlayers(),
+	CurrentOption = {""},
+	MultipleOptions = false,
+	Flag = "PlayerDropdown",
+	Callback = function(value)
+		selectedPlayer = value[1]
+	end
+})
+
+Players.PlayerAdded:Connect(function()
+	dropdown:Set(getOtherPlayers())
+end)
+
+Players.PlayerRemoving:Connect(function()
+	dropdown:Set(getOtherPlayers())
+end)
+
+PlayersTab:CreateButton({
+	Name = "Go to Target",
+	Callback = function()
+		if selectedPlayer then
+			local target = Players:FindFirstChild(selectedPlayer)
+			if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+				local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+				if hrp then
+					hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+				end
+			end
+		end
+	end
+})
+
+local loopTP = false
+
+PlayersTab:CreateToggle({
+	Name = "Loop TP to Target",
+	Default = false,
+	Flag = "LoopTP",
+	Callback = function(state)
+		loopTP = state
+		task.spawn(function()
+			while loopTP do
+				task.wait(0.2)
+				if selectedPlayer then
+					local target = Players:FindFirstChild(selectedPlayer)
+					if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+						local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+						if hrp then
+							hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+						end
+					end
+				end
+			end
+		end)
+	end
+})
+
+local targetHealthLabel = PlayersTab:CreateLabel({
+	Name = "Target Health: N/A"
+})
+
+task.spawn(function()
+	while task.wait(0.5) do
+		if selectedPlayer then
+			local target = Players:FindFirstChild(selectedPlayer)
+			if target and target.Character and target.Character:FindFirstChildOfClass("Humanoid") then
+				targetHealthLabel:Set("Target Health: "..math.floor(target.Character:FindFirstChildOfClass("Humanoid").Health))
+			else
+				targetHealthLabel:Set("Target Health: N/A")
+			end
+		else
+			targetHealthLabel:Set("Target Health: N/A")
+		end
+	end
+end)
